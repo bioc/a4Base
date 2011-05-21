@@ -1,3 +1,7 @@
+1.1.3
+    o update for revised glmnet package
+1.1.1
+    o on BioConductor
 0.0-26
     o better argument handling for mpm
 0.0-25

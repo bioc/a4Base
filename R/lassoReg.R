@@ -1,9 +1,3 @@
-# 
-# Lasso using package 'glmnet'
-#  both classification and regression are possible
-#
-###############################################################################
-
 lassoReg <- function(object, covariate){
   covariateVector <- pData(object)[, covariate]
   if (!is.numeric(covariateVector))
