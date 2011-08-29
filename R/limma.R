@@ -12,12 +12,15 @@ limmaTwoLevels <- function(object, group, probe2gene = TRUE){
   design <- model.matrix(~ f)
   fit <- lmFit(object, design)
   fit <- eBayes(fit)
-  limmaObj <- new("limma", MArrayLM = fit, 
-      geneSymbols = if (probe2gene) featureData(object)$`SYMBOL` else NULL)
-      # use gene symbols from ExpressionSet and not the ones
-      # that are in (the third column of) limmaObj@MArrayLM$genes
+  res <- if (probe2gene){
+        new("limma", MArrayLM = fit, geneSymbols = featureData(object)$`SYMBOL`)
+      } else {
+        fit
+      }
+  # use gene symbols from ExpressionSet and not the ones
+  # that are in (the third column of) limmaObj@MArrayLM$genes
   
-  return(limmaObj) 
+  return(res) 
 }
 
 # check with Willem; no default coef (with message) / default n = 10
