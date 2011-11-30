@@ -103,7 +103,7 @@ setMethod("spectralMap",
       if (addLegend){
         legend(legendPos, bty = "n", 
             legend = levels(pData(object)[, groups]),
-            text.col = plot.mpm.args$colors,
+            text.col = plot.mpm.args$colors[-c(1, 2)],
             cex = 1)
       }
       invisible(mpmPlot)
