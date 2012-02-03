@@ -147,16 +147,16 @@ probabilitiesPlot <- function(proportions,
 			abline(v = sampleLocations, lty = 2, col = "grey")
 			
 			### lower plot (with legends)
-			op <- par(mar = c(0,4,0,2))
-			plot(c(0, 1), type = "n", ann = FALSE, axes = FALSE)
-			legend("left", legend = classVarLevels, fill = classColors,
-					bty = "n")
-			legend("right", legend = c("0.5 <= score <=   1", 
-							"   0 <= score <  0.5"), 
-					pch = c(19, 17), pt.cex = 1.5, col = c("darkblue", "orange"), 
-					bty = "n")
-			par(op)
-						
+#			op <- par(mar = c(0,4,0,2))
+#			plot(c(0, 1), type = "n", ann = FALSE, axes = FALSE)
+#			legend("left", legend = classVarLevels, fill = classColors,
+#					bty = "n")
+#			legend("right", legend = c("0.5 <= score <=   1", 
+#							"   0 <= score <  0.5"), 
+#					pch = c(19, 17), pt.cex = 1.5, col = c("darkblue", "orange"), 
+#					bty = "n")
+#			par(op)
+#						
 		} else {
 			barplot(height = plotData, col = ifelse(plotData >= 0.5, "green", "red"),  
 					las = 3, ...)
