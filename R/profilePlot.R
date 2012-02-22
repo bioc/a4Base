@@ -81,8 +81,8 @@ plot1gene <- function (probesetId = NULL,
     gSymbol <- featureData(object)[probesetId[1],]$`SYMBOL`
   }
   
-  cexMain <- if (is.null(dotList$cex.main)) par("cex.main") else dotList$cex.main
-  cexLab <- if (is.null(dotList$cex.lab)) par("cex.lab") else dotList$cex.lab
+  # cexMain <- if (is.null(dotList$cex.main)) par("cex.main") else dotList$cex.main
+  # cexLab <- if (is.null(dotList$cex.lab)) par("cex.lab") else dotList$cex.lab
   
   mainTitle <- if (is.null(main)){
         if (probe2gene)
@@ -92,9 +92,14 @@ plot1gene <- function (probesetId = NULL,
         main 
       }
   
-  plot(1:(nc + 1), c(mean(plotData), plotData), type = "n",
-      axes = FALSE, xlab = "", ylab = expression(log[2] ~ intensity),
-      main = mainTitle, cex.main = cexMain, cex.lab = cexLab)
+  argList <- list(x = 1:(nc + 1), y = c(mean(plotData), plotData), type = "n", axes = FALSE, xlab = "", ylab = expression(log[2] ~ intensity),
+      main = mainTitle)
+  argList <- c(argList, dotList)
+  do.call("plot", args = argList)
+  
+  #  plot(1:(nc + 1), c(mean(plotData), plotData), type = "n",
+  #      axes = FALSE, xlab = "", ylab = expression(log[2] ~ intensity),
+  #      main = mainTitle, cex.main = cexMain, cex.lab = cexLab)
   
   points(2:(nc + 1), plotData, bg = colvec[numericColgroups], pch = 21, 
       cex = cex)
