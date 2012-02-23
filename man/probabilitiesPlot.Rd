@@ -33,20 +33,20 @@ probabilitiesPlot(proportions, classVar, sampleNames, plot = TRUE, barPlot = FAL
 
 \seealso{\code{\link{logReg}}}
 \examples{
-  if (require(ALL)){
-  data(ALL, package = "ALL")
-  ALL <- addGeneInfo(ALL)
-  ALL$BTtype <- as.factor(substr(ALL$BT,0,1))
-
-  logRegRes <- logReg(geneSymbol = "HLA-DPB1", object = ALL, groups = "BTtype")
-
-  # scoresplot
-  probabilitiesPlot(proportions = logRegRes$fit, classVar = logRegRes$y,
-    sampleNames = rownames(logRegRes), main = 'Probability of being a T-cell type ALL')
-  # barplot
-  probabilitiesPlot(proportions = logRegRes$fit, classVar = logRegRes$y, barPlot=TRUE,
-    sampleNames = rownames(logRegRes), main = 'Probability of being a T-cell type ALL')
-}
+%  if (require(ALL)){
+%  data(ALL, package = "ALL")
+%  ALL <- addGeneInfo(ALL)
+%  ALL$BTtype <- as.factor(substr(ALL$BT,0,1))
+%
+%  logRegRes <- logReg(geneSymbol = "HLA-DPB1", object = ALL, groups = "BTtype")
+%
+%  # scoresplot
+%  probabilitiesPlot(proportions = logRegRes$fit, classVar = logRegRes$y,
+%    sampleNames = rownames(logRegRes), main = 'Probability of being a T-cell type ALL')
+%  # barplot
+%  probabilitiesPlot(proportions = logRegRes$fit, classVar = logRegRes$y, barPlot=TRUE,
+%    sampleNames = rownames(logRegRes), main = 'Probability of being a T-cell type ALL')
+%}
 }
 %% Add one or more standard keywords, see file 'KEYWORDS' in the
 %% R documentation directory.
