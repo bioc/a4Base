@@ -90,7 +90,7 @@ probabilitiesPlot <- function(proportions,
 			plot(x = seq(along = plotData), # indices (names) of the samples 
 					y = plotData,   # vector of proportions of misclassification for each sample
 					ylim = c(0, 1),
-					type = "n", las =  3, ann = FALSE, axes = FALSE, ...)
+					type = "n", las =  0, ann = FALSE, axes = FALSE, ...)
 			
 			axis(1, las = 3, at = seq(along = plotData), 
 					labels = names(plotData), cex.axis = 0.5)
