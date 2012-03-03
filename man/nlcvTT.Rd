@@ -17,8 +17,10 @@
 }
 \seealso{\code{\link[nlcv]{nlcv}}}
 \examples{
+\dontrun{
   data(nlcvTT)
-  if (require(nlcv))
+  if (require(nlcv)) # on R-Forge
     scoresPlot(nlcvTT, tech = 'svm', nfeat = 25)
+}
 }
 \keyword{datasets}
