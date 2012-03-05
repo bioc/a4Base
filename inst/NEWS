@@ -1,3 +1,5 @@
+1.2.3
+    o circumvent build issues on certain versions of windows
 1.2.2
     o more appropriate handling of the dots argument in plot1gene
 1.2.1
