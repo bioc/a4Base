@@ -93,7 +93,7 @@ probabilitiesPlot <- function(proportions,
 					type = "n", las =  3, ann = FALSE, axes = FALSE, ...)
 			
 			axis(1, las = 3, at = seq(along = plotData), 
-					labels = names(plotData), cex.axis = 0.5)
+					labels = abbreviate(names(plotData)), cex.axis = 0.5)
 			axis(2, las = 2)
 			
 			# draw grid first...

@@ -39,6 +39,7 @@ A data.frame object with three columns and rownames
 
 \seealso{\code{\link[a4Classif]{ROCcurve}},\code{\link{probabilitiesPlot}}}
 \examples{
+\dontrun{
 if (require(ALL)){
   data(ALL, package = "ALL")
   ALL <- addGeneInfo(ALL)
@@ -52,5 +53,6 @@ if (require(ALL)){
   # barplot
   probabilitiesPlot(proportions = logRegRes$fit, classVar = logRegRes$y, barPlot=TRUE,
       sampleNames = rownames(logRegRes), main = 'Probability of being a T-cell type ALL')
+}
 }
 }

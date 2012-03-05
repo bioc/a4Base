@@ -33,6 +33,7 @@ probabilitiesPlot(proportions, classVar, sampleNames, plot = TRUE, barPlot = FAL
 
 \seealso{\code{\link{logReg}}}
 \examples{
+\dontrun{
   if (require(ALL)){
   data(ALL, package = "ALL")
   ALL <- addGeneInfo(ALL)
@@ -46,6 +47,7 @@ probabilitiesPlot(proportions, classVar, sampleNames, plot = TRUE, barPlot = FAL
   # barplot
   probabilitiesPlot(proportions = logRegRes$fit, classVar = logRegRes$y, barPlot=TRUE,
     sampleNames = rownames(logRegRes), main = 'Probability of being a T-cell type ALL')
+}
 }
 }
 %% Add one or more standard keywords, see file 'KEYWORDS' in the
