@@ -73,6 +73,6 @@ panel.cor <- function(x, y, digits=2, prefix="", cex.cor)
 	text(.8, .8, Signif, cex=cex, col=2)
 }
 
-plotCombMultSamples <- function(exprsMatrix){
-	pairs(exprsMatrix, lower.panel = panel.plotSmoothScat, upper.panel = panel.cor)
+plotCombMultSamples <- function(exprsMatrix, ...){
+	pairs(exprsMatrix, lower.panel = panel.cor, upper.panel = panel.plotSmoothScat, ...)
 }
