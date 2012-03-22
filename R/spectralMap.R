@@ -17,6 +17,7 @@ setGeneric("spectralMap", function(object, groups, ...){
 #' @seealso \code{\link[mpm]{plot.mpm}}
 #' @examples es <- simulateData()
 #'           spectralMap(object = es, groups = "type", probe2gene = FALSE) 
+
 setMethod("spectralMap",
     signature(object = "ExpressionSet", 
         groups = "character"),
@@ -33,7 +34,7 @@ setMethod("spectralMap",
             col.group = pData(object)[, groups],
             # colors = c("orange1", "red", rainbow(length(unique(col.group)), start=2/6, end=4/6)),
             colors = c("wheat", # gene color (if no smoothScatter is used)
-                "black", # color for genes considered to be outlying 
+                "darkgrey", # color for genes considered to be outlying 
                 a4palette(nlevels(pData(object)[, groups]))), # colors for the groups 
             col.size = 2,
             do.smoothScatter = TRUE),
@@ -49,6 +50,12 @@ setMethod("spectralMap",
         stop("'groups' should be a string (character vector of length one)")
       }
       
+	  if (!is.factor(pData(object)[, groups])){
+		  warning("'groups' should refer to a factor variable \n
+						  The variable has been transformed into factor variable")
+		  pData(object)[, groups] <- factor(pData(object)[, groups])
+	  }
+	  
       expressionData <- exprs(object)
       chip <- annotation(object)
       chipAnnotationPkg <- paste(chip, "db", sep = ".")
@@ -101,10 +108,12 @@ setMethod("spectralMap",
       
       # add legend
       if (addLegend){
+	  par(font = 2)
         legend(legendPos, bty = "n", 
             legend = levels(pData(object)[, groups]),
             text.col = plot.mpm.args$colors[-c(1, 2)],
             cex = 1)
-      }
+	   par(font = 1)
+}
       invisible(mpmPlot)
     })
