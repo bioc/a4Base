@@ -13,6 +13,7 @@ plotCombMultSamples(exprsMatrix)
 \arguments{
   \item{exprsMatrix}{ExpressionSet object to plot. For larger datasets,
    this will typically be a subset of the data.}
+  \item{\dots}{Further arguments, e.g. to add extra plot options. See \code{\link{par}}}
 }
 
 \references{ ~put references to the literature/web site here ~ }
