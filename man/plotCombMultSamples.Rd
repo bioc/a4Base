@@ -7,7 +7,7 @@ Plots a correlation matrix in gene expression between two samples. Each dot repr
 a gene, and the dots have a density-dependent coloring.
 }
 \usage{
-plotCombMultSamples(exprsMatrix)
+plotCombMultSamples(exprsMatrix, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -15,8 +15,6 @@ plotCombMultSamples(exprsMatrix)
    this will typically be a subset of the data.}
   \item{\dots}{Further arguments, e.g. to add extra plot options. See \code{\link{par}}}
 }
-
-\references{ ~put references to the literature/web site here ~ }
 \author{Willem Talloen}
 
 \seealso{\code{\link{plotComb2Samples}}}

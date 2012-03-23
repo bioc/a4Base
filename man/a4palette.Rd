@@ -5,7 +5,7 @@
   Utility function that defines a color palette for use in a4.
 }
 \usage{
-a4palette(n)
+a4palette(n, alpha = 1, Janssen = FALSE)
 }
 \arguments{
   \item{n}{Number of color levels the palette should provide}
