@@ -9,6 +9,9 @@ a4palette(n)
 }
 \arguments{
   \item{n}{Number of color levels the palette should provide}
+  \item{alpha}{alpha transparency level of the colors}
+  \item{Janssen}{logical.  If \code{TRUE}, Janssen Pharmaceutical colors
+   are used (with a maximum of 6 possible colors).}
 }
 \details{
   For n = 1, \code{"blue"} is returned; for n = 2 
