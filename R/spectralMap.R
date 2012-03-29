@@ -49,13 +49,17 @@ setMethod("spectralMap",
       if (length(groups) > 1){
         stop("'groups' should be a string (character vector of length one)")
       }
+
+      if (any(is.na(pData(object)[, groups]))){
+        stop("'groups' variable contains missing values")
+      }
       
-	  if (!is.factor(pData(object)[, groups])){
-		  warning("'groups' should refer to a factor variable \n
-						  The variable has been transformed into factor variable")
-		  pData(object)[, groups] <- factor(pData(object)[, groups])
-	  }
-	  
+      if (!is.factor(pData(object)[, groups])){
+        warning("'groups' should refer to a factor variable \n
+                The variable has been transformed into factor variable")
+        pData(object)[, groups] <- factor(pData(object)[, groups])
+      }
+      
       expressionData <- exprs(object)
       chip <- annotation(object)
       chipAnnotationPkg <- paste(chip, "db", sep = ".")
@@ -108,12 +112,12 @@ setMethod("spectralMap",
       
       # add legend
       if (addLegend){
-	  par(font = 2)
+        par(font = 2)
         legend(legendPos, bty = "n", 
             legend = levels(pData(object)[, groups]),
             text.col = plot.mpm.args$colors[-c(1, 2)],
             cex = 1)
-	   par(font = 1)
-}
+        par(font = 1)
+      }
       invisible(mpmPlot)
     })

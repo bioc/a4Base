@@ -1,3 +1,5 @@
+1.2.4
+    o throw error in case 'group' variable contains missing values in spectalMap
 1.2.3
     o circumvent build issues on certain versions of windows
 1.2.2
