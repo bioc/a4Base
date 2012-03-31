@@ -1,3 +1,7 @@
+1.4.1
+    o plot1gene now coerces the 'groups' variable to a factor in plot1gene
+1.4.0
+    o release for BioC 2.10
 1.2.4
     o throw error in case 'group' variable contains missing values in spectalMap
 1.2.3
