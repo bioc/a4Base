@@ -92,8 +92,11 @@ plot1gene <- function (probesetId = NULL,
   dotList <- list(...)
   
   groups <- pData(object)[, groups]
-  if (!is.factor(groups))
-    stop("The variable referenced by 'groups' should be a factor")
+  if (!is.factor(groups)){
+    groups <- as.factor(groups)
+    warning("The variable referenced by 'groups' was coerced to a factor for the purpose of this visualization")
+  }
+  
   groups <- groups[, drop=TRUE] # remove unused groups
   nByGroup <- as.numeric(table(groups))
   
