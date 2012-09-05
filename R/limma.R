@@ -23,6 +23,34 @@ limmaTwoLevels <- function(object, group, probe2gene = TRUE){
   return(res) 
 }
 
+#' Wrapper for the limma function for the comparison of two groups 
+#' (two factor levels)
+#' 
+#' @param object object of class ExpressionSet
+#' @param covariable string indicating the variable defining the continuous covariate
+ 
+limmaReg <- function(object, covariable){
+	
+	covar <- pData(object)[, covariable]
+	tfidx <- !is.na(covar)
+	eset2 <- object[,tfidx]
+	covar <- pData(eset2)[, covariable]
+
+	design <- cbind(mean = 1, slope = covar)
+	fit <- lmFit(exprs(eset2), design)
+	fit <- eBayes(fit)
+
+	res <- if (probe2gene){
+				new("limma", MArrayLM = fit, geneSymbols = featureData(object)$`SYMBOL`)
+			} else {
+				fit
+			}
+	# use gene symbols from ExpressionSet and not the ones
+	# that are in (the third column of) limmaObj@MArrayLM$genes
+	
+	return(res) 
+}
+
 # check with Willem; no default coef (with message) / default n = 10
 # coef = 2 because we are not interested whether the intercept is significant 
 # but whether group 2 is significantly different from group 1
