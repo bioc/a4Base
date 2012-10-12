@@ -29,7 +29,7 @@ limmaTwoLevels <- function(object, group, probe2gene = TRUE){
 #' @param object object of class ExpressionSet
 #' @param covariable string indicating the variable defining the continuous covariate
  
-limmaReg <- function(object, covariable){
+limmaReg <- function(object, covariable, probe2gene = TRUE){
 	
 	covar <- pData(object)[, covariable]
 	tfidx <- !is.na(covar)
