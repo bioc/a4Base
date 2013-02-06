@@ -5,7 +5,7 @@ Version: 1.7.0
 Date: 2012-03-05
 Author: Willem Talloen, Tobias Verbeke, Tine Casneuf, An De Bondt, Steven
   Osselaer and Hinrich Goehlmann
-Maintainer: Tobias Verbeke <tobias.verbeke@openanalytics.eu>
+Maintainer: Tobias Verbeke <tobias.verbeke@openanalytics.eu>, Willem Ligtenberg <willem.ligtenberg@openanalytics.eu>
 Description: Automated Affymetrix Array Analysis  
 Depends: methods, graphics, grid, Biobase, AnnotationDbi, annaffy, mpm,
    genefilter, limma, multtest, glmnet, a4Preproc, a4Core, gplots
