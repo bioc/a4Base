@@ -124,10 +124,10 @@
     ## computing averages    
     exprs.mean <- do.call('cbind',
         lapply(igroups,function(group) 
-            apply(exprs(e)[,rownames(group)],1,mean)))
-    colnames(exprs.mean) <- paste(irootnames,'mean',sep='.')     
+            apply(as.matrix(exprs(e)[, rownames(group)]),1,mean)))
+    colnames(exprs.mean) <- paste(irootnames, 'mean', sep='.')     
 
-    pData.mean <- cbind(statpData,statistic='mean')
+    pData.mean <- cbind(statpData, statistic='mean')
     rownames(pData.mean) <- colnames(exprs.mean)
     
     ## computing variances
