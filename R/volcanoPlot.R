@@ -10,7 +10,8 @@ setMethod("volcanoPlot",
     function(x, y, pointLabels, topPValues = 10, 
         topLogRatios = 10,
         smoothScatter = TRUE, xlab = NULL, ylab = NULL,
-        main = NULL, sub = NULL){
+        main = NULL, sub = NULL, newpage = TRUE, 
+        additionalPointsToLabel = NULL, additionalLabelColor = "red"){
             
       logRatio <- x[,"logRatio"]
       pValue <- x[,"p"]
@@ -19,7 +20,9 @@ setMethod("volcanoPlot",
       volcanoplotter(logRatio = logRatio, pValue = pValue, 
           pointLabels = pointLabels, topPValues = topPValues,
           topLogRatios = topLogRatios, smoothScatter = smoothScatter, 
-          xlab = xlab, ylab = ylab, main = main, sub = sub)
+          xlab = xlab, ylab = ylab, main = main, sub = sub,
+          newpage = newpage, additionalPointsToLabel = additionalPointsToLabel, 
+          additionalLabelColor = additionalLabelColor)
                   
 })
 
@@ -30,7 +33,8 @@ setMethod("volcanoPlot",
     function(x, y, pointLabels, topPValues = 10, 
         topLogRatios = 10,
         smoothScatter = TRUE, xlab = NULL, ylab = NULL,
-        main = NULL, sub = NULL){
+        main = NULL, sub = NULL, newpage = TRUE, 
+        additionalPointsToLabel = NULL, additionalLabelColor = "red"){
       
       logRatio <- x[,"logRatio"]
       pValue <- x[,"p"]
@@ -41,7 +45,9 @@ setMethod("volcanoPlot",
       volcanoplotter(logRatio = logRatio, pValue = pValue, 
           pointLabels = pointLabels, topPValues = topPValues,
           topLogRatios = topLogRatios, smoothScatter = smoothScatter, 
-          xlab = xlab, ylab = ylab, main = main, sub = sub)
+          xlab = xlab, ylab = ylab, main = main, sub = sub,
+          newpage = newpage, additionalPointsToLabel = additionalPointsToLabel, 
+          additionalLabelColor = additionalLabelColor)
       
 })
 
@@ -53,7 +59,8 @@ setMethod("volcanoPlot",
     function(x, y, pointLabels, topPValues = 10, 
         topLogRatios = 10,
         smoothScatter = TRUE, xlab = NULL, ylab = NULL,
-        main = NULL, sub = NULL){
+        main = NULL, sub = NULL, newpage = TRUE, 
+        additionalPointsToLabel = NULL, additionalLabelColor = "red"){
 
       logRatio <- as.matrix(x@MArrayLM$coef)[, 2]
       pValue <- as.matrix(x@MArrayLM$p.value)[, 2]
@@ -63,7 +70,9 @@ setMethod("volcanoPlot",
           pointLabels = pointLabels, topPValues = topPValues,
           topLogRatios = topLogRatios, logTransformP = TRUE, # p values
           smoothScatter = smoothScatter, xlab = xlab, ylab = ylab, 
-          main = main, sub = sub)
+          main = main, sub = sub,
+          newpage = newpage, additionalPointsToLabel = additionalPointsToLabel, 
+          additionalLabelColor = additionalLabelColor)
 
 })
 
@@ -73,7 +82,8 @@ setMethod("volcanoPlot",
         pointLabels = "character"),
     function(x, y, pointLabels, topPValues = 10, 
         topLogRatios = 10, smoothScatter = TRUE, 
-        xlab = NULL, ylab = NULL, main = NULL, sub = NULL){
+        xlab = NULL, ylab = NULL, main = NULL, sub = NULL, newpage = TRUE, 
+        additionalPointsToLabel = NULL, additionalLabelColor = "red"){
       
       logRatio <- as.matrix(x@MArrayLM$coef)[, 2]
       pValue <- as.matrix(x@MArrayLM$p.value)[, 2]
@@ -82,7 +92,9 @@ setMethod("volcanoPlot",
           pointLabels = pointLabels, topPValues = topPValues,
           topLogRatios = topLogRatios, logTransformP = TRUE, # p values  
           smoothScatter = smoothScatter, 
-          xlab = xlab, ylab = ylab, main = main, sub = sub)      
+          xlab = xlab, ylab = ylab, main = main, sub = sub,
+          newpage = newpage, additionalPointsToLabel = additionalPointsToLabel, 
+          additionalLabelColor = additionalLabelColor)      
 })
 
 
@@ -93,7 +105,8 @@ setMethod("volcanoPlot",
     function(x, y, pointLabels, topPValues = 10, 
         topLogRatios = 10,
         smoothScatter = TRUE, xlab = NULL, ylab = NULL,
-        main = NULL, sub = NULL){
+        main = NULL, sub = NULL, newpage = TRUE, 
+        additionalPointsToLabel = NULL, additionalLabelColor = "red"){
       
       if ((length(x) != length(y)) | (length(x) != length(pointLabels)))
         stop("'x', 'y' and 'pointLabels' should have equal length")
@@ -101,7 +114,9 @@ setMethod("volcanoPlot",
       volcanoplotter(logRatio = x, pValue = y, 
           pointLabels = pointLabels, topPValues = topPValues,
           topLogRatios = topLogRatios, smoothScatter = smoothScatter, 
-          xlab = xlab, ylab = ylab, main = main, sub = sub)
+          xlab = xlab, ylab = ylab, main = main, sub = sub,
+          newpage = newpage, additionalPointsToLabel = additionalPointsToLabel, 
+          additionalLabelColor = additionalLabelColor)
 })
 
 setMethod("volcanoPlot",
@@ -111,7 +126,8 @@ setMethod("volcanoPlot",
     function(x, y, pointLabels, topPValues = 10, 
         topLogRatios = 10,
         smoothScatter = TRUE, xlab = NULL, ylab = NULL,
-        main = NULL, sub = NULL){
+        main = NULL, sub = NULL, newpage = TRUE, 
+        additionalPointsToLabel = NULL, additionalLabelColor = "red"){
       
       if (length(x) != length(y))
         stop("'x' and 'y' should have equal length")
@@ -132,7 +148,9 @@ setMethod("volcanoPlot",
       volcanoplotter(logRatio = x, pValue = y, 
           pointLabels = pointLabels, topPValues = topPValues,
           topLogRatios = topLogRatios, smoothScatter = smoothScatter, 
-          xlab = xlab, ylab = ylab, main = main, sub = sub)
+          xlab = xlab, ylab = ylab, main = main, sub = sub,
+          newpage = newpage, additionalPointsToLabel = additionalPointsToLabel, 
+          additionalLabelColor = additionalLabelColor)
     })
 
 
@@ -141,7 +159,7 @@ setMethod("volcanoPlot",
 volcanoplotter <- function(logRatio, pValue, pointLabels,
     topPValues = 10, topLogRatios = 10, logTransformP = TRUE,
     smoothScatter = TRUE, xlab = NULL, ylab = NULL, main = NULL, 
-    sub = NULL, newpage = TRUE){
+    sub = NULL, newpage = TRUE, additionalPointsToLabel = NULL, additionalLabelColor = "red"){
   ### checks                      
   if (!is.numeric(logRatio))
     stop("'logRatio' should be numeric")
@@ -158,18 +176,21 @@ volcanoplotter <- function(logRatio, pValue, pointLabels,
   topP <- order(pVals, decreasing = TRUE)[seq(length.out = topPValues)]#logTransformP)[seq(length.out = topPValues)]
   pointsToLabel <- union(topP, topLR)
   
+  pointsToLabel <- union(pointsToLabel, which(names(logRatio) %in% additionalPointsToLabel))
+  colPointsToLabel <- ifelse(names(logRatio)[pointsToLabel] %in% additionalPointsToLabel, additionalLabelColor, "black")
+  
   ### set up graph
   if (newpage)
     grid.newpage()
   pvp <- plotViewport(c(5, 6, 5, 3))
   pushViewport(pvp)
   
-  # compute maximum grobwidth
-  
-  tg <- textGrob(label = pointLabels[pointsToLabel], # TV: problematic sub _ratio 
-      x = unit(logRatio[pointsToLabel], "native"),
+  tg <- textGrob(label = pointLabels[pointsToLabel], 
+      x = unit(logRatio[pointsToLabel], "native"), 
       y = unit(pVals[pointsToLabel], "native"), 
-      gp = gpar(cex = 0.65, col = "black"))
+      gp = gpar(cex = 0.65, col = colPointsToLabel))
+
+  # compute maximum grobwidth
   
   maxLabelWidth <- max(grobWidth(tg))
   nMaxLabelWidth <- convertHeight(maxLabelWidth, "native", 

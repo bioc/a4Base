@@ -58,12 +58,12 @@ a4palette <- function(n, alpha = 1.0, Janssen = FALSE){
 	
 	if(Janssen){
 		# Janssen ppt template colors
-		col1 <- rgb(9,53,122, alpha = alpha, max=255)
-		col2 <- rgb(42,142,191, alpha = alpha, max=255)
-		col3 <- rgb(148,198,223, alpha = alpha, max=255)
-		col4 <- rgb(35,125,38, alpha = alpha, max=255)
-		col5 <- rgb(127,195,28, alpha = alpha, max=255)
-		col6 <- rgb(191,225,141, alpha = alpha, max=255)
+		col1 <- rgb(9,53,122, alpha = alpha, maxColorValue = 255)
+		col2 <- rgb(42,142,191, alpha = alpha, maxColorValue = 255)
+		col3 <- rgb(148,198,223, alpha = alpha, maxColorValue = 255)
+		col4 <- rgb(35,125,38, alpha = alpha, maxColorValue = 255)
+		col5 <- rgb(127,195,28, alpha = alpha, maxColorValue = 255)
+		col6 <- rgb(191,225,141, alpha = alpha, maxColorValue = 255)
 		
 		res <- if (n==1) col2
 				else if (n==2) c(col2, col4)

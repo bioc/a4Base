@@ -397,7 +397,7 @@ heatmap.expressionSet <- function(
 		heatmap.grid = grid.layout(  
 		  nrow=heatmap.grid.nrow,
 		  ncol=heatmap.grid.ncol,
-		  width=grid.layout.col.widths,
+		  widths=grid.layout.col.widths,
 		  heights=grid.layout.row.heights)
 		
 		
@@ -506,10 +506,10 @@ heatmap.expressionSet <- function(
 		## title #
 		
 		# push viewport with the layout for images
-		title.vp.layout <-grid.layout(
+		title.vp.layout <- grid.layout(
 				nrow=1,
 				ncol=5,
-				width=unit(
+				widths=unit(
 							c(1,1,30,legend.width[1],1),
 							c("null","grobwidth","points",attr(legend.width,"unit"),"null"),
 							c(vector(mode="list",length=1),list(title.toplot.grob),vector(mode="list",length=3))))

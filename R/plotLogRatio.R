@@ -227,7 +227,7 @@ plotLogRatio <- function(
 	##E width=min(xx,maxwidth)
 	
 # create main viewport
-	vp1 <- viewport(x = 0, y = 0, w = 1, h = 1, just = c("left", "bottom"),
+	vp1 <- viewport(x = 0, y = 0, width = 1, height = 1, just = c("left", "bottom"),
 			layout = grid.layout(nrow = nr + 14, ncol = 1))
 	pushViewport(vp1)
 	

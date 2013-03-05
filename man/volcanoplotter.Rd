@@ -8,7 +8,8 @@
   expression for the given genes.
 }
 \usage{
-volcanoplotter(logRatio, pValue, pointLabels, topPValues = 10, topLogRatios = 10, logTransformP = TRUE, smoothScatter = TRUE, xlab = NULL, ylab = NULL, main = NULL, sub = NULL, newpage = TRUE)
+volcanoplotter(logRatio, pValue, pointLabels, topPValues = 10, topLogRatios = 10, logTransformP = TRUE, smoothScatter = TRUE, xlab = NULL, ylab = NULL, 
+  main = NULL, sub = NULL, newpage = TRUE, additionalPointsToLabel = NULL, additionalLabelColor = "red")
 }
 \arguments{
   \item{logRatio}{numeric vector of log ratios}
@@ -31,8 +32,11 @@ volcanoplotter(logRatio, pValue, pointLabels, topPValues = 10, topLogRatios = 10
   \item{main}{main title for the graph (string)}
   \item{sub}{subtitle for the graph (string)}
   \item{newpage}{should the graph be drawn to a new grid page? Defaults to
-    \code{FALSE}. This argument is useful for including several volcano plots 
+    \code{TRUE}. This argument is useful for including several volcano plots 
     in one layout.}
+  \item{additionalPointsToLabel}{Entrez IDs of genes of interest, that will be highlighted on the plot; the color of highlighting is determined
+    by the 'additionalLabelColor' argument.}
+  \item{additionalLabelColor}{Color used to highlight the 'additionalPointsToLabel'; defaults to "red".}
 }
 \value{
   a volcanoplot is drawn to the current device

@@ -30,6 +30,7 @@ volcanoPlot(x, y, pointLabels, ...)
     Microarrays, Chapman \& Hall/CRC, pp. 148 - 153.
 }
 \author{Tobias Verbeke, based on code by Willem Talloen}
+\seealso{See \code{\link{volcanoplotter}}}
 \examples{
 if (require(ALL)){
   data(ALL, package = "ALL")
