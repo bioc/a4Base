@@ -177,7 +177,16 @@ volcanoplotter <- function(logRatio, pValue, pointLabels,
   pointsToLabel <- union(topP, topLR)
   
   pointsToLabel <- union(pointsToLabel, which(names(logRatio) %in% additionalPointsToLabel))
-  colPointsToLabel <- ifelse(names(logRatio)[pointsToLabel] %in% additionalPointsToLabel, additionalLabelColor, "black")
+  if(is.null(additionalPointsToLabel)){
+    colPointsToLabel <- rep("black", length(pointsToLabel))
+  } else{
+    if(is.null(names(logRatio))){
+      stop("labeling additional points required a named vector for the logRatios")
+    }
+    else{
+      colPointsToLabel <- ifelse(names(logRatio)[pointsToLabel] %in% additionalPointsToLabel, additionalLabelColor, "black")
+    }
+  }
   
   ### set up graph
   if (newpage)
