@@ -230,10 +230,13 @@ heatmap.expressionSet <- function(
 		data[data < min.breaks] <- min.breaks
 		data[data > max.breaks] <- max.breaks
 		# from image.default --> to cut into classes
-		data.breaks <- matrix(.C("bincode", as.double(data), length(data), as.double(breaks),
-		            length(breaks), code = integer(length(data)), (TRUE),
-		            (TRUE), nok = TRUE, NAOK = TRUE, DUP = FALSE, PACKAGE = "base")$code -
-		            1 ,ncol=ncol(data), nrow=nrow(data),byrow=FALSE)+1
+    data.breaks <- matrix(.bincode(as.double(data), as.double(breaks)), 
+        ncol = ncol(data), nrow = nrow(data), byrow = FALSE)
+    # Old C call here just for reference
+#		data.breaks <- matrix(.C("bincode", as.double(data), length(data), as.double(breaks),
+#		            length(breaks), code = integer(length(data)), (TRUE),
+#		            (TRUE), nok = TRUE, NAOK = TRUE, DUP = FALSE, PACKAGE = "base")$code -
+#		            1 ,ncol=ncol(data), nrow=nrow(data),byrow=FALSE)+1
 		
 		
 		#print(breaks)			
