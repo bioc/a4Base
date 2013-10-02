@@ -1,10 +1,10 @@
 Package: a4Base
 Type: Package
 Title: Automated Affymetrix Array Analysis Base Package
-Version: 1.9.0
-Date: 2012-03-05
+Version: 1.9.1
+Date: 2013-10-02
 Author: Willem Talloen, Tobias Verbeke, Tine Casneuf, An De Bondt, Steven
-  Osselaer and Hinrich Goehlmann
+  Osselaer and Hinrich Goehlmann, Willem Ligtenberg
 Maintainer: Tobias Verbeke <tobias.verbeke@openanalytics.eu>, Willem Ligtenberg <willem.ligtenberg@openanalytics.eu>
 Description: Automated Affymetrix Array Analysis  
 Depends: methods, graphics, grid, Biobase, AnnotationDbi, annaffy, mpm,
