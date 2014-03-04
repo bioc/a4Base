@@ -1,15 +1,16 @@
 Package: a4Base
 Type: Package
 Title: Automated Affymetrix Array Analysis Base Package
-Version: 1.11.0
+Version: 1.11.1
 Date: 2013-10-02
-Author: Willem Talloen, Tobias Verbeke, Tine Casneuf, An De Bondt, Steven
-  Osselaer and Hinrich Goehlmann, Willem Ligtenberg
-Maintainer: Tobias Verbeke <tobias.verbeke@openanalytics.eu>, Willem Ligtenberg <willem.ligtenberg@openanalytics.eu>
-Description: Automated Affymetrix Array Analysis  
+Author: Willem Talloen, Tobias Verbeke, Tine Casneuf, An De Bondt,
+        Steven Osselaer and Hinrich Goehlmann, Willem Ligtenberg
+Maintainer: Tobias Verbeke <tobias.verbeke@openanalytics.eu>, Willem
+        Ligtenberg <willem.ligtenberg@openanalytics.eu>
+Description: Automated Affymetrix Array Analysis
 Depends: methods, graphics, grid, Biobase, AnnotationDbi, annaffy, mpm,
-   genefilter, limma, multtest, glmnet, a4Preproc, a4Core, gplots
+        genefilter, limma, multtest, glmnet, a4Preproc, a4Core, gplots
 Suggests: Cairo, ALL
 Enhances: gridSVG, JavaGD
-biocViews: Bioinformatics, Microarray
 License: GPL-3
+biocViews: Microarray
