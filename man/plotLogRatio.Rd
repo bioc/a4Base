@@ -21,11 +21,11 @@ plotLogRatio(e, reference, within = NULL, across = NULL, nReplicatesVar = 3,
 }
 \arguments{
   \item{e}{ ExpressionSet object to use }
-  \item{reference}{ List with components 'var' and 'level ' -- see computeDEStats help }
-  \item{within}{ Vector of characters for pData column -- see computeDEStats help }
-  \item{across}{ Vector of characters for pData column -- see computeDEStats help }
+  \item{reference}{ List with components 'var' and 'level ' -- see computeLogRatio help }
+  \item{within}{ Vector of characters for pData column -- see computeLogRatio help }
+  \item{across}{ Vector of characters for pData column -- see computeLogRatio help }
   \item{nReplicatesVar}{ Minimum number of replicates to compute variances and pooled 
-    standard errors -- see computeDEStats help }
+    standard errors -- see computeLogRatio help }
   \item{filename}{ Name of the filename to use. No need to specify extension which 
     will be added according to device.}
   \item{device}{ One of 'pdf', 'X11', 'png', 'svg'. For svg device, one X11 device 
