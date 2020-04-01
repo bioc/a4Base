@@ -10,7 +10,7 @@ Maintainer: Tobias Verbeke <tobias.verbeke@openanalytics.eu>,
 Description: Automated Affymetrix Array Analysis
 Depends: methods, graphics, grid, Biobase, AnnotationDbi, annaffy, mpm,
         genefilter, limma, multtest, glmnet, a4Preproc, a4Core, gplots
-Suggests: Cairo, ALL
+Suggests: Cairo, ALL, hgu95av2.db
 Enhances: gridSVG, JavaGD
 License: GPL-3
 biocViews: Microarray

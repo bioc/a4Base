@@ -139,7 +139,7 @@ if (require(ALL)){
 
   # plot the log ratios versus subtype B of the top genes 
   LogRatioALL <- computeLogRatio(ALL2, reference=list(var='BT',level='B'))
-  a <- plotLogRatio(e=LogRatioALL[topGenes,],openFile=FALSE, tooltipvalues=FALSE, device='X11',
+  a <- plotLogRatio(e=LogRatioALL[topGenes,],openFile=FALSE, tooltipvalues=FALSE, device='pdf',
       colorsColumnsBy=c('BTtype'), main = 'Top 20 genes most differentially between T- and B-cells',
       orderBy = list(rows = "hclust"), probe2gene = TRUE)
 }

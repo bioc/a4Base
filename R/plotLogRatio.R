@@ -476,7 +476,7 @@ plotLogRatio <- function(
 	popViewport()
 	
 	if (device == 'svg') {        #E includes script for tooltips
-		grid.script(file=file.path(.path.package('a4'), 'etc', 'tooltip.script'))  
+		grid.script(file=file.path(path.package('a4'), 'etc', 'tooltip.script'))  
 		gridToSVG(name = filename)
 		if (openFile) browseURL(url = filename)
 	}
