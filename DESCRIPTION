@@ -1,8 +1,8 @@
 Package: a4Base
 Type: Package
 Title: Automated Affymetrix Array Analysis Base Package
-Version: 1.35.0
-Date: 2013-10-02
+Version: 1.35.1
+Date: 2020-04-02
 Author: Willem Talloen, Tobias Verbeke, Tine Casneuf, An De Bondt,
         Steven Osselaer and Hinrich Goehlmann, Willem Ligtenberg
 Maintainer: Tobias Verbeke <tobias.verbeke@openanalytics.eu>, 
