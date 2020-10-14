@@ -1,3 +1,5 @@
+1.37.1
+    o spectralMap: fix legend win-32
 1.4.1
     o plot1gene now coerces the 'groups' variable to a factor in plot1gene
 1.4.0
