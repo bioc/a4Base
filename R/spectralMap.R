@@ -111,13 +111,17 @@ setMethod("spectralMap",
       mpmPlot <- do.call("plot.mpm", plot.mpm.args)
       
       # add legend
-      if (addLegend){
-        par(font = 2)
-        legend(legendPos, bty = "n", 
-            legend = levels(pData(object)[, groups]),
-            text.col = plot.mpm.args$colors[-c(1, 2)],
-            cex = 1)
-        par(font = 1)
-      }
+	if (addLegend){
+		colorsLegend <- plot.mpm.args$colors[-c(1, 2)]
+		if(length(colorsLegend) > 0){
+			par(font = 2)
+			legend(legendPos, bty = "n", 
+				legend = levels(pData(object)[, groups]),
+				text.col = colorsLegend,
+				cex = 1)
+			par(font = 1)
+		}
+	}
+}
       invisible(mpmPlot)
     })
