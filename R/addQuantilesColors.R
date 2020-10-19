@@ -1,4 +1,25 @@
 
+#' Compute quantiles for plotGeneDE function
+#' 
+#' Compute quantiles on mean expression level for plotGeneDE function. 
+#' Colors of bars in the plot could 
+#' then be allocated using buckets defined by those quantiles.
+#' @details Number of computed quantiles is equal to (ngroups - 1).
+#' @param e ExpressionSet object to use for computation
+#' @param ngroups Number of groups to be created
+#' @return The ExpressionSet object e is returned, 
+#' with a new column called colorsQuantilesVector in its slot featureData
+#' @seealso \code{\link{plotLogRatio}}
+#' @author Eric Lecoutre
+#' @examples
+#' if (require(ALL)){
+#'   data(ALL, package = "ALL")
+#'   ALLQ <- addQuantilesColors(ALL)
+#'   fData(ALLQ)
+#' }
+#' @importFrom Biobase exprs `fData<-`
+#' @importFrom stats quantile
+#' @export
 addQuantilesColors <- function(e,ngroups=3)
 {
 #D ngroups=5

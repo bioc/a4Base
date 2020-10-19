@@ -5,6 +5,37 @@
 
 
 
+#' Plots the correlation in gene expression between two samples
+#' 
+#' Plots the correlation in gene expression between two samples. Each dot represents
+#' a gene, and the dots have a density-dependent coloring.
+#' Genes with exceptional behavior can be highlighted by showing their gene symbol. 
+#' @param object ExpressionSet object for the experiment
+#' @param x String containing the name of the first sample. This should be a 
+#'  the name of a column in the \code{exprs} data of the \code{expressionSet} object.
+#' @param y String containing the name of the second sample. See \code{x}
+#' @param trsholdX Vector of two values specifying the X-axis thresholds within which
+#' genes should be highlighted by their gene symbol.
+#' @param trsholdY Vector of two values specifying the Y-axis thresholds within which
+#' genes should be highlighted by their gene symbol.
+#' @param probe2gene Boolean indicating whether the probeset should be translated to a gene symbol
+#' (used for the default title of the plot)
+#' @param ... Possibility to add extra plot options. See \code{\link{par}}
+#' @return 
+#' @examples 
+#' if (require(ALL)){
+#'   data(ALL, package = "ALL")
+#'   ALL <- addGeneInfo(ALL)
+#'  plotComb2Samples(ALL,"84004", "01003",
+#'     trsholdX = c(10,12), trsholdY = c(4,6),
+#' 	   xlab = "a B-cell", ylab = "a T-cell")
+#' }
+#' @seealso \code{\link{plotCombMultSamples}}
+#' @author W. Talloen
+#' @importFrom Biobase exprs featureData
+#' @importFrom graphics plot axis box points text
+#' @importFrom grDevices densCols
+#' @export
 plotComb2Samples <- function(object, x, y,
 		trsholdX = NULL, trsholdY = NULL,
 		probe2gene = TRUE, ...){
@@ -47,6 +78,8 @@ plotComb2Samples <- function(object, x, y,
 }
 
 #### Scatterplot matrix with density-dependent coloring
+#' @importFrom graphics points points abline
+#' @importFrom grDevices densCols
 panel.plotSmoothScat <- function(x, y, ...) {
 	points(x, y, axes=F, type="n", main="", xlab="", ylab="", ...)
 	dotColors <- densCols(x, y)
@@ -54,6 +87,8 @@ panel.plotSmoothScat <- function(x, y, ...) {
 	abline(a=0, b=1, col="red")
 }
 
+#' @importFrom graphics par text
+#' @importFrom stats cor.test symnum
 panel.cor <- function(x, y, digits=2, prefix="", cex.cor)
 {
 	usr <- par("usr"); on.exit(par(usr))
@@ -73,6 +108,21 @@ panel.cor <- function(x, y, digits=2, prefix="", cex.cor)
 	text(.8, .8, Signif, cex=cex, col=2)
 }
 
+#' Plots the correlation in gene expression between more than 2 samples
+#' @param exprsMatrix ExpressionSet object to plot. For larger datasets,
+#' this will typically be a subset of the data.
+#' @param ... Further arguments, e.g. to add extra plot options. See \code{\link{pairs}}
+#' @return no returned value, a plots is drawn in the current device
+#' @author Willem Talloen
+#' @seealso \code{\link{plotComb2Samples}}
+#' @examples 
+#' if (require(ALL)){
+#'  data(ALL, package = "ALL")
+#'  ALL <- addGeneInfo(ALL)
+#'  plotCombMultSamples(exprs(ALL)[,c("84004", "11002", "01003")])
+#' }
+#' @importFrom graphics pairs
+#' @export
 plotCombMultSamples <- function(exprsMatrix, ...){
 	pairs(exprsMatrix, lower.panel = panel.cor, upper.panel = panel.plotSmoothScat, ...)
 }

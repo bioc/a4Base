@@ -2,14 +2,46 @@
 ### from expression data and phenodata
 ### 
 
-`createExpressionSet` <-
+#' combine gene expression and phenotype data onto a ExpressionSet object
+#' 
+#' Basically a wrapper for \code{new('ExpressionSet',...)}, this function gathers gene
+#' expression and phenotype data, after having checked their compatibility.
+#' @param exprs gene expression matrix
+#' @param phenoData phenotype data associated with exprs columns, as a matrix or data.frame
+#' @param varMetadata optional metadata on phenotype data
+#' @param dimLabels see \code{\link[Biobase]{ExpressionSet}}
+#' @param featureData see \code{\link[Biobase]{ExpressionSet}}
+#' @param experimentData see \code{\link[Biobase]{ExpressionSet}}
+#' @param annotation see \code{\link[Biobase]{ExpressionSet}}
+#' @param changeColumnsNames Change exprs columns names -- see details
+#' @param ... \code{\dots}
+#' @details
+#'  If \code{changeColumnsNames} is \code{TRUE}, then the procedure is the following: first one checks if phenoData contains a column named 'colNames'. If so, content will be used to rename exprs colums. On the other case, one uses combinations of phenoData columns to create new names. In any case, old columns names
+#'  are stored within a column named 'oldcolnames' in the pData.
+#' @examples 
+#' # simulate expression data of 10 features (genes) measured in 4 samples
+#' x <- matrix(rnorm(40), ncol = 4)
+#' colnames(x) <- paste("sample", 1:4, sep = "_")
+#' rownames(x) <- paste("feature", 1:10, sep = "_")
+#' # simulate a phenodata with two variables
+#' ToBePheno <- data.frame(Gender = rep(c('Male','Female'), 2), 
+#' 		Treatment = rep(c('Trt','Control'), each=2))
+#' rownames(ToBePheno) <- paste("sample", 1:4, sep = "_")
+#' eset <- createExpressionSet(exprs = x, phenoData = ToBePheno)
+#' @return An object of class ExpressionSet
+#' @author Eric Lecoutre
+#' @seealso \code{\link[Biobase]{ExpressionSet}}
+#' @keywords data
+#' @importFrom Biobase AnnotatedDataFrame ExpressionSet MIAME
+#' @export
+createExpressionSet <-
 		function(
-				exprs = new("matrix"),
-				phenoData = new("AnnotatedDataFrame"),
+				exprs = matrix(nrow = 0, ncol = 0),
+				phenoData = AnnotatedDataFrame(),
 				varMetadata= NULL,
 				dimLabels = c("rowNames","colNames"),
 				featureData = NULL, 
-				experimentData = new("MIAME"), 
+				experimentData = MIAME(), 
 				annotation = character(0), 
 				changeColumnsNames = TRUE,...){  
 	
@@ -27,16 +59,15 @@
 		if (!is.null(varMetadata)){
 			if ((nrow(varMetadata)!=ncol(phenoData)) | (!'labelDescription' %in% colnames(varMetadata))){
 				warning(paste("varMetadata not compliant with phenoData", "maybe there is not a column called 'labelDescription'","check ?AnnotatedDataFrame","--- we will not use it",sep='\n'))
-				phenoData <- new('AnnotatedDataFrame',
-						data=phenoData,dimLabels=dimLabels)
+				phenoData <- AnnotatedDataFrame(data=phenoData,dimLabels=dimLabels)
 			}
 			else {
-				phenoData <-new('AnnotatedDataFrame',
+				phenoData <-AnnotatedDataFrame(
 						data=phenoData,
 						varMetadata=varMetadata,
 						dimLabels=dimLabels)
 			}
-		} else phenoData <- new('AnnotatedDataFrame',
+		} else phenoData <- AnnotatedDataFrame(
 					data=phenoData,
 					dimLabels=dimLabels)
 	}
@@ -64,7 +95,7 @@
 	rownames(pData(phenoData)) <- colnames(exprs)  
 	if (is(exprs,'data.frame')) exprs <- as.matrix(exprs)
 	if (!is.null(featureData)){
-		out <- new('ExpressionSet', 
+		out <- ExpressionSet( 
 				exprs=exprs,
 				phenoData = phenoData,
 				featureData=featureData, 
@@ -72,7 +103,7 @@
 				annotation = annotation)
 	}
 	else {
-		out <- new('ExpressionSet', 
+		out <- ExpressionSet(
 				exprs=exprs,
 				phenoData = phenoData,
 				experimentData = experimentData, 
@@ -101,17 +132,40 @@
 ### utility function to combine two ExpressionSet objects
 ### 
 
-`combineTwoExpressionSet` <-
-		function(x,y){
+#' Combine two ExpressionSet objects
+#' 
+#' Merge two ExpressionSet objects, checking their attributes.
+#' @param x An object of class ExpressionSet
+#' @param y An object of class ExpressionSet
+#' @details 
+#' exprs and pData are merged. 
+#' Other data (such as MIAME or annotation) are those of x.
+#' @return An object of class ExpressionSet
+#' @examples 
+#' \dontrun{
+#' # prepare and combine two ExpressionSet
+#' data(data.H2009); data(phenoData.H2009)
+#' data(data.SKOV3); data(phenoData.SKOV3)
+#' eH2009 <- prepareExpressionSet(exprs = data.H2009, phenoData = phenoData.H2009, changeColumnsNames = TRUE)
+#' eSKOV3  <- prepareExpressionSet(exprs = data.SKOV3, phenoData = phenoData.SKOV3, changeColumnsNames = TRUE)
+#' newE <- combineTwoExpressionSet(eH2009,eSKOV3)
+#' }
+#' @seealso \code{\link[Biobase]{ExpressionSet}}
+#' @author Eric Lecoutre
+#' @keywords data
+#' @importFrom Biobase AnnotatedDataFrame assayData
+#' @export
+combineTwoExpressionSet <- function(x,y){
 # prioritary  keep information from x, append assayData and phylo data from y
 	out <- x
 	outAssayData <- new.env()
 	assign("exprs",cbind(assayData(x)$exprs,assayData(y)$exprs),
 			envir=outAssayData)
 	assayData(out) <- outAssayData
-	outPhenoData <- new("AnnotatedDataFrame",
+	outPhenoData <- AnnotatedDataFrame(
 			data=rbind(pData(x),pData(y)),
-			varMetadata = varMetadata(x)) 
+			varMetadata = varMetadata(x)
+	) 
 	phenoData(out) <- outPhenoData
 	return(out)
 }

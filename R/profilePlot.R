@@ -4,7 +4,7 @@
 #' @param alpha transparency level for the color(s)
 #' @return character vector of colors 
 #' @author Tobias Verbeke
-#' @export
+#' @importFrom grDevices hcl
 oaColors <- function(color = NULL, alpha = 1.0){
 	
 	colPalette1 <- hcl(seq(0, 360, by = 10 ), l = 50, c = 250, alpha = alpha)
@@ -39,7 +39,6 @@ oaColors <- function(color = NULL, alpha = 1.0){
 #' @param alpha transparency level of the colors
 #' @return vector of colors
 #' @author Jason Waddell
-#' @export
 oaPalette <- function(numColors = NULL, alpha = 1.0){
 	
 	# check numColors = NULL, test range
@@ -52,6 +51,29 @@ oaPalette <- function(numColors = NULL, alpha = 1.0){
 	
 }
 
+#' Utility function that defines a color palette for use in a4
+#' @param n Number of color levels the palette should provid
+#' @param alpha alpha transparency level of the colors
+#' @param Janssen logical.  If \code{TRUE}, Janssen Pharmaceutical colors
+#' are used (with a maximum of 6 possible colors).
+#' @details
+#'  For n = 1, \code{"blue"} is returned; for n = 2 
+#'  \code{c("red", "blue")} is returned; for n = 3 
+#'  \code{c("red", "green", "blue"} is returned; for n = 4 
+#'  \code{c("red", "green", "blue", "purple")} is returned and for n > 2, 
+#'  the output of \code{rainbow(n)} is returned.
+#' @return a character vector of colors
+#' 
+#' @author Steven Osselaer, Tobias Verbeke
+#' @seealso \code{\link[grDevices]{rainbow}}
+#' @examples 
+#'  op <- par(mfrow = c(2, 3))
+#'  for (nGroups in 1:6)
+#'   pie(rep(1, nGroups), a4palette(nGroups))
+#'  par(op)
+#' @keywords dplot
+#' @importFrom grDevices rgb rainbow
+#' @export
 a4palette <- function(n, alpha = 1.0, Janssen = FALSE){
 	if (!is.numeric(n) | n < 1)
 		stop("'n' should be a positive integer")
@@ -75,7 +97,59 @@ a4palette <- function(n, alpha = 1.0, Janssen = FALSE){
 	} else {if (n < 10) oaPalette(n, alpha)	else if (n==2) rainbow(n)}
 }
 
-### intensity plot
+#' Create a Profile Plot for a given Gene
+#' 
+#'  Create a profile plot for a given gene. A profile plot displays the expression values (y-axis)
+#'    by samples (x-axis), sorted by group. This is a useful working graph as samples can be
+#'    directly identified. For presentation purposes, a \code{boxPlot} can also be considered. with jittered for readability of the plot.
+#' @param probesetId The probeset ID. These should be stored in the \code{featureNames}
+#'  of the \code{expressionSet} object.
+#' @param geneSymbol The gene symbol. These should be stored in the column \code{`Gene Symbol`}
+#'   in the \code{featureData} of the \code{expressionSet} object
+#' @param object ExpressionSet object for the experiment
+#' @param groups String containing the name of the grouping variable. This should be a 
+#'  name of a column in the \code{pData} of the \code{expressionSet} object.
+#' @param main Main title on top of the graph
+#' @param colvec Vector of colors to be used for the groups. If not specified, the default colors of
+#'   \code{a4palette} are used.
+#' @param colgroups String containing the name of the variable to color the superimposed dots.
+#'   This should be a the name of a column in the \code{pData} of the \code{expressionSet} object
+#' @param probe2gene Boolean indicating whether the probeset should be translated to a gene symbol
+#'    (used for the default title of the plot)
+#' @param sampleIDs A boolean or a string to determine the labels on the x-axis. Setting it to FALSE
+#'  results in no labels (interesting when the labels are unreadable due to large sample sizes).
+#'  Setting it to a string will put the values of that particular \code{pData} column as labels.
+#'  The string should be a name of a column in the \code{pData} of the \code{expressionSet} object."
+#' @param addLegend Boolean indicating whether a legend for the colors of the dots should be added.
+#' @param legendPos Specify where the legend should be placed. Typically either \code{topright},
+#'   \code{bottomright}, \code{topleft} (the default) or \code{bottomleft}
+#' @param cex character expansion used for the plot symbols; defaults to 1.5
+#' @param ... Further arguments, e.g. to add extra plot options. See \code{\link{par}}
+#' @return   If a \code{geneSymbol} is given that has more than one probeSet,
+#' the plots for only the first probeSet is displayed.
+#'   A character vector of corresponding probeset IDs is returned invisibly,
+#'   so that one can check the profiles of the other related probeset IDs with
+#'   an extra \code{plot1gene} statement 
+#'  If a \code{probesetId} is given, one single profile plot for the probeset is 
+#'   displayed.
+#' @seealso \code{\link{plotCombination2genes}}, \code{\link{boxPlot}}
+#' @author S. Osselaer, W. Talloen, T. Verbeke
+#' @examples 
+#' if (require(ALL)){
+#'   data(ALL, package = "ALL")
+#'   ALL <- addGeneInfo(ALL)
+#'   # one variable (specified by groups)
+#'   plot1gene(geneSymbol = 'HLA-DPB1', object = ALL, groups = "BT",
+#' 	    addLegend = TRUE, legendPos = 'topright')
+#'   # two variables (specified by groups and colGroups)
+#'  ALL$BTtype <- as.factor(substr(ALL$BT,0,1))
+#'   plot1gene(probeset = '1636_g_at', object = ALL, groups = 'BT',
+#'       colgroups = 'mol.biol', legendPos='topright', sampleIDs = 'BT')    
+#' }
+#' @keywords dplot
+#' @importFrom Biobase pData featureData featureNames exprs
+#' @importFrom graphics plot points axis mtext lines legend
+#' @export
 plot1gene <- function (probesetId = NULL, 
     geneSymbol = NULL, 
     object, groups, main = NULL, colvec = NULL,
@@ -164,7 +238,7 @@ plot1gene <- function (probesetId = NULL,
   argList <- list(x = 1:(nc + 1), y = c(mean(plotData), plotData), type = "n", axes = FALSE, xlab = "", ylab = expression(log[2] ~ intensity),
       main = mainTitle)
   argList <- c(argList, dotList)
-  do.call("plot", args = argList)
+  do.call(plot, args = argList)
   
   #  plot(1:(nc + 1), c(mean(plotData), plotData), type = "n",
   #      axes = FALSE, xlab = "", ylab = expression(log[2] ~ intensity),
@@ -221,6 +295,47 @@ plot1gene <- function (probesetId = NULL,
 }
 
 # plot boxplot per gene with raw data superimposed
+#' Create a boxplot for a given gene.
+#' 
+#'  Create a boxplot for a given gene. The boxplot displays the expression values (y-axis)
+#'    by groupss (x-axis). The raw data are superimposed as dots, jittered for readability of the plot.
+#'    Optionally, the dots can be colored by another variable.
+#' @param probesetId The probeset ID. These should be stored in the \code{featureNames}
+#'   of the \code{expressionSet} object.
+#' @param geneSymbol The gene symbol. These should be stored in the column \code{`Gene Symbol`}
+#'    in the \code{featureData} of the \code{expressionSet} object.
+#' @param object ExpressionSet object for the experiment
+#' @param groups String containing the name of the grouping variable. This should be a 
+#'   the name of a column in the \code{pData} of the \code{expressionSet} object.
+#' @param main Main title on top of the graph
+#' @param colvec Vector of colors to be used for the groups. If not specified, the default colors of
+#'    \code{a4palette} are used.
+#' @param colgroups String containing the name of the variable to color the superimposed dots.
+#'    This should be a the name of a column in the \code{pData} of the \code{expressionSet} object
+#' @param probe2gene Boolean indicating whether the probeset should be translated to a gene symbol
+#'     (used for the default title of the plot)
+#' @param addLegend Boolean indicating whether a legend for the colors of the dots should be added.
+#' @param legendPos Specify where the legend should be placed. Typically either \code{topright},
+#'    \code{bottomright}, \code{topleft} (the default) or \code{bottomleft}
+#' @param ... Possibility to add extra plot options. See \code{\link{par}}
+#' @return 
+#' @seealso \code{\link{plot1gene}}
+#' @examples 
+#' # simulated data set
+#' esSim <- simulateData()
+#' boxPlot(probesetId = 'Gene.1', object = esSim, groups = 'type', addLegend = FALSE)
+#' # ALL data set
+#' if (require(ALL)){
+#'   data(ALL, package = "ALL")
+#'   ALL <- addGeneInfo(ALL)
+#'   ALL$BTtype <- as.factor(substr(ALL$BT,0,1))
+#'   boxPlot(geneSymbol = 'HLA-DPB1', object = ALL, boxwex = 0.3,
+#' 		  groups = 'BTtype', colgroups = 'BT', legendPos='topright')
+#' }
+#' @author Willem Talloen
+#' @importFrom Biobase pData exprs featureData
+#' @importFrom graphics boxplot points legend
+#' @export
 boxPlot <- function(probesetId = NULL, 
     geneSymbol = NULL, 
     object, groups, main = NULL, colvec = NULL,
@@ -301,6 +416,44 @@ boxPlot <- function(probesetId = NULL,
 }
 
 # plot combination of two genes
+
+#' Plot a Combination of Two Genes
+#' 
+#' Plot a Combination of Two Genes
+#' @param probesetId1 First probeset id, plotted in the x-axis
+#' @param probesetId2 Second probeset id, plotted in the y-axis
+#' @param geneSymbol1 First gene symbol, plotted in the x-axis
+#' @param geneSymbol2 Second gene symbol, plotted in the y-axi
+#' @param object ExpressionSet object for the experiment
+#' @param groups string containing the name of the grouping variable
+#' @param addLegend Logical value to indicate whether a legend needs to be draw
+#' @param legendPos Position on the graph where to put the legend
+#' @param probe2gene should the probeset be translated to a gene symbol
+#'  (used for the default title of the plot
+#' @param colvec a character vector of colors. If not specified it will be 
+#'  automatically generated by \code{a4palette}
+#' @param ... This allows to specify typical arguments in the \code{plot} functio
+#' @return If a gene id is given, the plots for only the first probeset is displayed 
+#'   and a character vector of corresponding probeset IDs is returned invisibly.  
+#'   It is a list containing
+#'   \item{probeset1 }{Probeset ids measuring 'gene1'}
+#'   \item{probeset1 }{Probeset ids measuring 'gene1'}
+#'   If a probeset id is given, one single profile plot for the probeset is 
+#'  displayed.
+#' @seealso \code{\link{plot1gene}}
+#' @author W. Talloen, T. Verbeke
+#' @examples 
+#' if (require(ALL)){
+#'  data(ALL, package = "ALL")
+#'  ALL <- addGeneInfo(ALL)
+#'  aa <- plotCombination2genes(geneSymbol1 = 'HLA-DPB1', geneSymbol2 = 'CD3D',
+#'			object = ALL, groups = "BT",
+#'			addLegend = TRUE, legendPos = 'topright')
+#'  aa
+#'}
+#' @importFrom Biobase exprs featureNames pData
+#' @importFrom graphics plot points legend
+#' @export
 plotCombination2genes <- function(probesetId1 = NULL, probesetId2 = NULL,
     geneSymbol1 = NULL, geneSymbol2 = NULL,
     object, groups, addLegend = TRUE, legendPos = "topleft",
@@ -365,6 +518,40 @@ plotCombination2genes <- function(probesetId1 = NULL, probesetId2 = NULL,
 }
 
 # parallel coordinate plots
+#' Plot expression profiles of multiple genes or probesets
+#' Plot expression profiles of multiple genes or probesets. Each line depicts a gene,
+#' and the color legend can be used to identify the gene.
+#' @param object ExpressionSet object for the experiment
+#' @param probesetIds The probeset ID. These should be stored in the \code{featureNames}
+#'   of the \code{expressionSet} object.
+#' @param sampleIDs A boolean or a string to determine the labels on the x-axis. Setting it to FALSE
+#'  results in no labels (interesting when the labels are unreadable due to large sample sizes).
+#'  Setting it to a string will put the values of that particular \code{pData} column as labels.
+#'  The string should be a name of a column in the \code{pData} of the \code{expressionSet} object
+#' @param addLegend Boolean indicating whether a legend for the colors of the dots should be added.
+#' @param legendPos Specify where the legend should be placed. Typically either \code{topright},
+#'   \code{bottomright}, \code{topleft} (the default) or \code{bottomleft}
+#' @param colvec Vector of colors to be used for the groups. If not specified, the default colors of
+#'   \code{a4palette} are used
+#' @param orderGroups String containing the name of the grouping variable to order the samples 
+#'  in the x-axis accordingly. This should be a name of a column in the \code{pData} of
+#'   the \code{expressionSet} object.
+#' @param ... Possibility to add extra plot options. See \code{\link{par}}
+#' @examples 
+#' if (require(ALL)){
+#' data(ALL, package = "ALL")
+#' ALL <- addGeneInfo(ALL)
+#' ALL$BTtype <- as.factor(substr(ALL$BT,0,1))
+#' myGeneSymbol <- c("LCK")	# a gene 
+#' probesetPos <- which(myGeneSymbol == featureData(ALL)$SYMBOL)
+#' myProbesetIds <- featureNames(ALL)[probesetPos]
+#' profilesPlot(object = ALL, probesetIds = myProbesetIds, 
+#'       orderGroups = "BT", sampleIDs = "BT")
+#' }
+#' @return No returned value, a plot is drawn in the current device.
+#' @seealso \code{\link{plot1gene}}, \code{\link{boxPlot}}
+#' @author W. Talloen
+#' @export
 profilesPlot <- function (object, probesetIds, sampleIDs = TRUE, 
     addLegend = TRUE, legendPos = "topleft", colvec = NULL,
     orderGroups = NULL, ...) {

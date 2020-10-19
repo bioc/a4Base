@@ -30,6 +30,7 @@ splitTitle <- function(vec,cp=30,maxlines=4){
 
 
 # slighlty adapted from P. Murrell "R Graphics", pages 233
+#' @importFrom grid rectGrob gpar
 makeImageRect <- function(nrow, ncol,cols, byrow,gp=list(col=NULL),
 			force.y=NULL,force.height=NULL, just=c("right", "top")) {
   xx <- (1:ncol)/ncol   
@@ -54,6 +55,7 @@ makeImageRect <- function(nrow, ncol,cols, byrow,gp=list(col=NULL),
            name="image")
 }
 
+#' @importFrom grid gTree gList
 imageGrob <- function(nrow, ncol, cols, byrow=TRUE,
                        name=NULL, gp=NULL, vp=NULL,...) { 
   igt <- gTree(nrow=nrow, ncol=ncol, 
@@ -65,12 +67,109 @@ imageGrob <- function(nrow, ncol, cols, byrow=TRUE,
   igt
 }
 
+#' @importFrom grid grid.draw
 grid.imageGrob <- function(...) {
   igt <- imageGrob(...)
   grid.draw(igt)
 }
 
 
+#' Image plot of an expressionSet
+#' 
+#' Grid version of heatmap function adapted to expressionSet objects with some specific 
+#'  requirements such as the possibility to display subgroups, define colors, 
+#'  adapt text graphical parameters (sizes...).
+#' The function also suggests a size appropriate for a device 
+#' to generate a complete plot with all elements. 
+#' @section Colors:
+#' 	There are several ways to specify colors used for the image zone. 
+#'  The usual way is to have a shading from colors.groups.min to a color per group (typically the same).
+#'  By default, a shading is indeed proposed between white (for colors.groups.min) and a same color shared by groups (red for colors.groups.max).
+#'  The number of possible colors in the shading is determined by colors.nbreaks.
+#'  In case one asks for distinct colors for groups, only a single value for colors.groups.min is allowed.
+#'  By default, subgroups colors are taken from phenoData ("sampleColor" column), consequence of colors.groups being NULL.
+#'  Colors for groups are overided by providing a vector of valid colors for this colors.groups argument.
+#'  An additional and flexible way to determine colors is to provide a complete palette of possible colors, as a character vector of valid colors (argument colors.palette). 
+#'  Note that in this case the argument colors.nbreaks has no effect as the number of possible values is the length of the palette.  	  
+#' @param eset expressionSet object
+#' @param col.groups Vector specifying sub-groups for individual. 
+#' Sub-groups are treated separately and can thus on plot have different colors.
+#' @param col.orderBy Vector specifying ordering for individual. 
+#' In case there are sub-groups, individual must first be ordered by sub-groups, 
+#' but an additional variable gives a way to sort individual within sub-groups. 
+#' @param col.groups.sep.width Object of class unit (grid package). 
+#' Width used to visually separate sub-groups of individuals. 
+#' This can be unit(0,"points") for example for no separation.
+#' @param col.labels Character vector for columns labels (individuals), by default taken from phenoData.	
+#' @param col.labels.sep.width Object of class \code{\link[grid]{gpar}}. Parameters to be used for labels (cex,...).
+#' @param col.labels.gpar Object of class \code{\link[grid]{gpar}}. Parameters to be used for labels (cex,...).
+#' @param col.labels.max.nchar Integer. Number of maximum characters to be used for labels truncation
+#' @param colors.pergroup Boolean. If TRUE, separate colors are used to color image matrix. Colors defined for groups are used.
+#' @param colors.groups Vector. Colors to be used for each group of individual. 
+#' If NULL (default), colors are taken from column "sampleColor" of expressionSet phenoData.
+#' @param colors.groups.min Character vector of length 1 corresponding to a valid color. If colors.groups are provided, 
+#' a shading if done between color.group and this color (default: white). 
+#' @param colors.max Character vector of length 1 corresponding to a valid color. See colors details.
+#' @param colors.min Character vector of length 1 corresponding to a valid color. See colors details.
+#' @param colors.nbreaks Integer. Number of cutpoints used to split the color palette/shading. 
+#' @param colors.palette Character vector of valid color names.
+#' @param cell.gpar Object of class gpar (grid package). Parameters used to format cells, for example to add border (gpar(lty=1)).
+#' @param row.groups.sep.height Object of class unit (grid package). Height between rows sub-groups.
+#' @param row.labels.sep.height Object of class unit (grid package). Height between image plot zone and rows labels
+#' @param row.col.groups.display Boolean. Display or not colored band for subgroups of individuals.
+#' @param row.col.groups.display.height Object of class unit (grid package). If row.col.groups.display is TRUE then height used for the displayed band. 
+#' @param row.labels.gpar Object of class gpar (grid package). Parameters to be used for labels (cex,...).
+#' @param row.labels.max.nchar Integer. Number of maximum characters to be used for labels truncation.
+#' @param row.labels Character vector or list. If vector, direct labels to be used. 
+#'  If list, elements of the list will be taken from featureData and collapsed using row.labels.sep.
+#' %%  Can be a list    ~~Describe \code{row.labels} here~~
+#' @param row.labels.sep In case labels are taken from featureData (list for row.labels), separator used to paste the provided columns.
+#' @param row.groups Boolean specifying whether rows are split into sub-groups. 
+#' %%     ~~Describe \code{row.groups} here~~
+#' @param row.order Either a vector of indices to be used to reorder features (rows) or "none" or "hclust" to use clustering.
+#' @param row.groups.hclust Boolean. If row.order equals "hclust", one can ask to split features into sub-groups based on a cut of the clustering dendogram.
+#' %%     ~~Describe \code{row.groups.hclust} here~~
+#' @param row.groups.hclust.n Integer. If row.order equals "hclust" and row.groups.hclust is TRUE, number of sub-groups. 
+#' @param distfun Function. For row.order equals "hclust", metric function.
+#' @param hclustfun Function. For row.order equals "hclust", clustering function.
+#' @param values.min Minimum value for the data range. Values that are inferior are assigned to that value. 
+#' That ensures a maximal cutpoint for the coloring scale.
+#' @param values.max Maximum value for the data range. Values that are superior are assigned to that value. 
+#' That ensures a maximal cutpoint for the coloring scale.
+#' @param title.gpar Object of class gpar (grid package). Parameters to be used for the main title (cex,...).
+#' @param title.main Character vector. Main title to be displayed.
+#' @param title.just Title justification, one of "center","left","right" (first letter of the word can also be used).  
+#' @param title.maxlines Maximum number of lines for the title split.
+#' @param title.cutpoint Integer. Maximum number of characters a line must have. Title is split into lines according to that cutpoint.
+#' @param subtitle.gpar Object of class gpar (grid package). Parameters to be used for the subtitle (cex, col,...).
+#' @param subtitle.main Character vector. Subtitle. The subtitle will be split into lines following same rules as used for main title.
+#' @param subtitle.maxlines Maximum number of lines for the subtitle split.
+#' @param subtitle.just Subtitle justification, 
+#' one of "center","left","right" (first letter of the word can also be used).
+#' @param subtitle.cutpoint Integer. Maximum number of characters a line must have. Subtitle is split into lines according to that cutpoint.
+#' %%Number of charact	
+#' @param margin.top Object of class unit (grid package). Top margin.
+#' @param margin.left Object of class unit (grid package). Left margin.
+#' @param margin.right Object of class unit (grid package). Right margin.
+#' @param margin.bottom Object of class unit (grid package). Bottom margin.
+#' @param legend.display Boolean. Display or not the legend. Legend is positionned in upper right corner. 
+#' @param legend.range Character: "full" (default) or "data". If full, color scale legend ranges from values.min to values.max. 
+#' If "data", range is c(min(data),max(data)).  
+#' @param legend.data.display Boolean. Display or not color scale legend.
+#' @param legend.gpar Object of class gpar (grid package). Parameters to be used for color scale legend axis (cex,...).
+#' @param legend.width Object of class unit (grid package). Width for the color scale legend.
+#' @param legend.height Object of class unit (grid package). Height for the color scale legend.
+#' @param ... Additional parameters the function may have. Not used currently
+#' @return The function suggests a size (width, height) for the graphic returned as a vector.
+#'  A typical usage will be to call the function a first time 
+#'  to get those values and call it again with an output device
+#' @author Eric Lecoutre <eric.lecoutre@gmail.com>
+#' @example inst/examples/heatmap-example.R
+#' @importFrom Biobase pData phenoData sampleNames exprs
+#' @importFrom grid unit gpar textGrob grid.newpage convertUnit grid.layout viewport pushViewport popViewport grid.text
+#' @importFrom grDevices rgb
+#' @importFrom stats dist hclust as.dendrogram cutree order.dendrogram
+#' @export
 heatmap.expressionSet <- function(
 	eset,
 	col.groups = pData(phenoData(eset))[,"subGroup"],
@@ -126,10 +225,6 @@ heatmap.expressionSet <- function(
 	legend.height  = unit(40,"points")	
 	,...
 	){
-
-		
-		stopifnot(require(Biobase))
-		stopifnot(require(grid))
 		
 		### REORDER EXPRESSION SET
 		################################################################################

@@ -1,23 +1,68 @@
-#' Spectral Map according to JnJ Standards
+#' Generic function to draw a spectral map, according to JnJ Standards
+#' @param object object of class ExpressionSet
+#' @param groups string indicating the name of the column in the phenoData that
+#'  defines the groups
+#' @param ... further arguments to be passed to the methods
 #' @author Tobias Verbeke
+#' @return   Object of class \code{plot.mpm}, i.e. the S3 output object of the \code{plot.mpm}
+#' function of the \code{mpm} package
+#' @note Coloring of groups on the spectralMap uses the a4 palette as produced
+#'  by \code{a4palette}
+#' @seealso \code{\link{spectralMap-methods}}, \code{\link[mpm]{plot.mpm}}
+#' @references 
+#' Wouters, L., Goehlmann, H., Bijnens, L., Kass, S.U., Molenberghs, G.,
+#'   Lewi, P.J. (2003). Graphical exploration of gene expression data: a
+#'   comparative study of three multivariate methods. \emph{Biometrics}
+#'   \bold{59}, 1131-1140.
+#'   Goehlmann, H. and W. Talloen (2009). Gene Expression Studies Using Affymetrix
+#'     Microarrays, Chapman \& Hall/CRC, pp. 148 - 153.
+#' @examples 
+#' if (require(ALL)){
+#' 	data(ALL, package = "ALL")
+#' 	ALL <- addGeneInfo(ALL)
+#' 	spectralMap(object = ALL, groups = "BT", legendPos = 'bottomright')
+#' 	spectralMap(object = ALL, groups = "BT",
+#' 	 plot.mpm.args = list(label.tol = 10, rot = c(-1, 1), sub = "", lab.size = 0.65,
+#' 					dim = c(1,2), sampleNames = FALSE, zoom = c(1,5), col.size = 2, 
+#' 					do.smoothScatter = TRUE))
+#' 	spectralMap(object = ALL, groups = "BT",
+#' 			plot.mpm.args = list(label.tol = 10, rot = c(-1, 1), sub = "", lab.size = 0.65,
+#' 					dim = c(1,2), sampleNames = as.character(pData(ALL)$BT),
+#' 					zoom = c(1,5), col.size = 2, do.smoothScatter = TRUE))
+#' }
+#' @keywords hplot
+#' @export 
 setGeneric("spectralMap", function(object, groups, ...){
       standardGeneric("spectralMap")
     })    
 
-
-
-#' Spectral Map according to JnJ Standards
+#' Methods for Function spectralMap according to JnJ Standards
+#' 
+#' Methods for spectralMap
+#' @param makeLognormalboolean indicating whether one wants to exponentiate the
+#' 	data to make them lognormally shaped (\code{TRUE}; the default) or not 
+#' (\code{FALSE})
+#' @param mpm.args list of arguments that can be passed to the \code{mpm} function
+#' @param plot.mpm.args list of arguments that can be passed to the 
+#' 	\code{plot.mpm} function that actually draws the plot
+#' @param probe2gene boolean indicating whether one wants to display the gene symbols
+#' 	for the labeled points (\code{TRUE}) or not (\code{FALSE}; the default)
+#' @param addLegend Boolean indicating whether a legend for the colors of the dots should be added.
+#' @param legendPos Specify where the legend should be placed. Typically either \code{topright},
+#' 	\code{bottomright}, \code{topleft} (the default) or \code{bottomleft} 
+#' @return the plot is returned invisibly 
 #' @author Tobias Verbeke
-#' @param object object of class \code{ExpressionSet}
-#' @param groups string giving the name of the phenoData variable
-#'               that defines the different groups to compare
-#' @param makeLognormal boolean; if \code{TRUE}, the data will be backtransformed 
-#'                   in order to obtain data of lognormal shape
-#' @param plot.mpm.args list of arguments to pass to the \code{plot.mpm} function
-#' @seealso \code{\link[mpm]{plot.mpm}}
-#' @examples es <- simulateData()
-#'           spectralMap(object = es, groups = "type", probe2gene = FALSE) 
+#' @docType methods
+#' @keywords methods hplot
+#' @importFrom Biobase pData exprs annotation sampleNames
+#' @importFrom mpm mpm plot.mpm
+#' @importFrom graphics par legend
+#' @export
+#' @name spectralMap-methods
+NULL
 
+#' @rdname spectralMap-methods
+#' @export
 setMethod("spectralMap",
     signature(object = "ExpressionSet", 
         groups = "character"),
@@ -73,7 +118,7 @@ setMethod("spectralMap",
       mpm.args$data <- mpmInput
       
       # compute the projection
-      plot.mpm.args$x <- do.call("mpm", mpm.args)    
+      plot.mpm.args$x <- do.call(mpm, mpm.args)    
       
       # adjust sample names (to escape the constraints of data frame column names)
       #   otherwise 'X' will have been prepended by the mpm function and displayed as such
@@ -108,20 +153,19 @@ setMethod("spectralMap",
         
       }
       
-      mpmPlot <- do.call("plot.mpm", plot.mpm.args)
+      mpmPlot <- do.call(plot.mpm, plot.mpm.args)
       
       # add legend
-	if (addLegend){
-		colorsLegend <- plot.mpm.args$colors[-c(1, 2)]
-		if(length(colorsLegend) > 0){
-			par(font = 2)
-			legend(legendPos, bty = "n", 
-				legend = levels(pData(object)[, groups]),
-				text.col = colorsLegend,
-				cex = 1)
-			par(font = 1)
+		if (addLegend){
+			colorsLegend <- plot.mpm.args$colors[-c(1, 2)]
+			if(length(colorsLegend) > 0){
+				par(font = 2)
+				legend(legendPos, bty = "n", 
+					legend = levels(pData(object)[, groups]),
+					text.col = colorsLegend,
+					cex = 1)
+				par(font = 1)
+			}
 		}
-	}
-}
       invisible(mpmPlot)
     })

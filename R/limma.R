@@ -4,6 +4,24 @@
 #' @param object object of class ExpressionSet
 #' @param group string indicating the variable defining the two groups
 #'               to be compared
+#' @param probe2gene logical; if \code{TRUE} Affymetrix probeset IDs are translated
+#' into gene symbols; if \code{FALSE} no such translation is done
+#' @return 
+#' S4 object of class 'limma' with the following two components:
+#' \item{MArrayLM}{S4 object of class MArrayLM as returned by the limma
+#' 			function of the limma package}
+#' \item{geneSymbols}{character vector of gene symbols; this slot is only
+#' 	populated if \code{probe2gene=TRUE} (and if the ExpressionSet object
+#' 	is appropriately annotated by \code{addGeneInfo} for gene symbols to
+#' 	be extracted)}
+#' @author Tobias Verbeke and Willem Talloen
+#' @note A 'topTable' method is defined for 'limma' objects.
+#' @keywords models
+#' @importFrom Biobase pData featureData
+#' @importFrom stats model.matrix
+#' @importFrom limma lmFit eBayes
+#' @importFrom methods new
+#' @export
 limmaTwoLevels <- function(object, group, probe2gene = TRUE){
   f <- factor(pData(object)[, group])[,drop = TRUE]
   if (nlevels(f) != 2)
@@ -28,7 +46,9 @@ limmaTwoLevels <- function(object, group, probe2gene = TRUE){
 #' 
 #' @param object object of class ExpressionSet
 #' @param covariable string indicating the variable defining the continuous covariate
- 
+#' @importFrom Biobase pData featureData
+#' @importFrom limma lmFit eBayes
+#' @importFrom methods new
 limmaReg <- function(object, covariable, probe2gene = TRUE){
 	
 	covar <- pData(object)[, covariable]
@@ -55,6 +75,9 @@ limmaReg <- function(object, covariable, probe2gene = TRUE){
 # coef = 2 because we are not interested whether the intercept is significant 
 # but whether group 2 is significantly different from group 1
 
+#' @export
+#' @importFrom limma eBayes topTableF topTable
+#' @rdname topTable-methods
 setMethod("topTable", "limma",
     function(fit, n = 10, coef = 2, genelist = fit$genes, 
         eb = fit[c("t", "p.value", "lods")], adjust.method = "BH",
@@ -74,7 +97,7 @@ setMethod("topTable", "limma",
                 p.value = p.value))
       }
       fit <- unclass(fit)
-      toptable(fit = fit[c("coefficients", "stdev.unscaled")], 
+      topTable(fit = fit[c("coefficients", "stdev.unscaled")], 
           coef = coef, number = n, genelist = fit$genes, A = fit$Amean, 
           eb = fit[c("t", "p.value", "lods")], adjust.method = "BH", 
           sort.by = sort.by, resort.by = resort.by, p.value = p.value, 
@@ -83,6 +106,9 @@ setMethod("topTable", "limma",
 
 ### redefine as well for MArrayLM objects
 
+#' @export
+#' @importFrom limma eBayes topTableF topTable
+#' @rdname topTable-methods
 setMethod("topTable", "MArrayLM",
     function(fit, n, coef = 2, genelist = fit$genes, 
         eb = fit[c("t", "p.value", "lods")], adjust.method = "BH",
@@ -104,7 +130,7 @@ setMethod("topTable", "MArrayLM",
                 p.value = p.value))
       }
       fit <- unclass(fit)
-      toptable(fit = fit[c("coefficients", "stdev.unscaled")], 
+      topTable(fit = fit[c("coefficients", "stdev.unscaled")], 
           coef = coef, number = n, genelist = fit$genes, A = fit$Amean, 
           eb = fit[c("t", "p.value", "lods")], adjust.method = "BH", 
           sort.by = sort.by, resort.by = resort.by, p.value = p.value, 

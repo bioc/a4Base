@@ -1,16 +1,24 @@
 Package: a4Base
 Type: Package
 Title: Automated Affymetrix Array Analysis Base Package
-Version: 1.36.1
-Date: 2020-10-14
-Author: Willem Talloen, Tobias Verbeke, Tine Casneuf, An De Bondt,
-        Steven Osselaer and Hinrich Goehlmann, Willem Ligtenberg
-Maintainer: Tobias Verbeke <tobias.verbeke@openanalytics.eu>, 
-  Laure Cougnaud <laure.cougnaud@openanalytics.eu>
+Version: 1.37.2
+Date: 2020-10-19
+Authors@R: c(
+  person(given = "Willem", family = "Talloen", role = "aut"),
+  person(given = "Tine", family = "Casneuf", role = "aut"),
+  person(given = "An", family = "De Bondt", role = "aut"),
+  person(given = "Steven", family = "Osselaer", role = "aut"),
+  person(given = "Hinrich", family = "Goehlmann", role = "aut"),
+  person(given = "Willem", family = "Ligtenberg", role = "aut"),
+  person(given = "Tobias", family = "Verbeke", role = "aut", email = "tobias.verbeke@openanalytics.eu"),
+  person(given = "Laure", family = "Cougnaud", role = "cre", email = "laure.cougnaud@openanalytics.eu")
+ )
 Description: Automated Affymetrix Array Analysis
-Depends: methods, graphics, grid, Biobase, AnnotationDbi, annaffy, mpm,
-        genefilter, limma, multtest, glmnet, a4Preproc, a4Core, gplots
+Imports: methods, graphics, grid, Biobase, AnnotationDbi, annaffy, mpm,
+        genefilter, limma, multtest, glmnet, gplots
+Depends: a4Preproc, a4Core 
 Suggests: Cairo, ALL, hgu95av2.db
 Enhances: gridSVG, JavaGD
 License: GPL-3
 biocViews: Microarray
+RoxygenNote: 7.1.1

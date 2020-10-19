@@ -1,4 +1,7 @@
-1.36.1
+1.37.2
+    o use Imports rather than Depends + use roxygen2 for documentation
+    o use Authors@R
+1.37.1
     o spectralMap: fix legend win-32
 1.4.1
     o plot1gene now coerces the 'groups' variable to a factor in plot1gene

@@ -1,3 +1,50 @@
+#' Logistic regression for predicting the probability to belong to a certain class
+#'  in binary classification problems
+#' 
+#' Logistic regression for predicting the probability to belong to a certain class
+#'  in binary classification problems.
+#' @param object ExpressionSet object for the experiment
+#' @param groups String containing the name of the grouping variable. This should be a 
+#'  the name of a column in the \code{pData} of the \code{expressionSet} object.
+#' @param probesetId The probeset ID. These should be stored in the \code{featureNames}
+#'  of the \code{expressionSet} object.
+#' @param geneSymbol The gene symbol. These should be stored in the column \code{`Gene Symbol`}
+#'  in the \code{featureData} of the \code{expressionSet} object.
+#' @param main Main title on top of the gra
+#' @param probe2gene Boolean indicating whether the probeset should be translated to a gene symbol
+#'  (used for the default title of the plot)
+#' @param ... Possibility to add extra plot options. See \code{\link[graphics]{plot}}
+#' @details 
+#' It will always estimate probability scores to belong to the second level
+#' of the factor variable. If a probability score to other level is preferred,
+#' then you need to change the order of the levels of the factor.
+#' @return 
+#' A data.frame object with three columns and rownames
+#'   \item{rownames }{The 'sampleNames' of the expressionSet object}
+#'   \item{x }{The expression values for the specified gene for all samples}
+#'   \item{y }{The labels of the samples}
+#'   \item{fit }{The fitted probability score to belong to one of the two classes.}
+#' @seealso \code{\link[a4Classif]{ROCcurve}},\code{\link{probabilitiesPlot}}
+#' @author Willem Talloen
+#' @examples 
+#' \dontrun{
+#' if (require(ALL)){
+#'   data(ALL, package = "ALL")
+#'   ALL <- addGeneInfo(ALL)
+#'   ALL$BTtype <- as.factor(substr(ALL$BT,0,1))
+#'   logRegRes <- logReg(geneSymbol = "HLA-DPB1", object = ALL, groups = "BTtype")
+#'   # scoresplot
+#'   probabilitiesPlot(proportions = logRegRes$fit, classVar = logRegRes$y,
+#'       sampleNames = rownames(logRegRes), main = 'Probability of being a T-cell type ALL')
+#'   # barplot
+#'   probabilitiesPlot(proportions = logRegRes$fit, classVar = logRegRes$y, barPlot=TRUE,
+#'       sampleNames = rownames(logRegRes), main = 'Probability of being a T-cell type ALL')
+#'  }
+#' }
+#' @importFrom Biobase exprs featureData featureNames pData
+#' @importFrom stats glm fitted
+#' @importFrom graphics par plot lines axis
+#' @export
 logReg <- function(object, groups, probesetId = NULL, 
 		geneSymbol = NULL, main = NULL, probe2gene = TRUE, ...){
 	
@@ -59,6 +106,50 @@ logReg <- function(object, groups, probesetId = NULL,
 	#-----------
 }
 
+#' Function to plot the probabilities to belong to a certain class
+#'  in binary classification problems.
+#' 
+#'  Function to plot the probabilities to belong to a certain class
+#'   in binary classification problems. These probabilities are often calculated 
+#'   using a logistic regression model. The class membership of the samples is
+#'   displayed using a colored strip (with legend below the plot).
+#' @param proportions A vector containing the calculated probabilities to belong to a certain class
+#'  in binary classification problems. These probabilities are often calculated 
+#'  using a logistic regression model.
+#' @param classVar A vector containing the class where the sample belongs t
+#' @param sampleNames A vector with the names of the samp
+#' @param plot logical.  If \code{FALSE}, nothing is plotted
+#' @param barPlot Should a barplot be drawn (\code{TRUE}) or a scatterplot like
+#'   MCREstimate-type scores plot (the default, \code{FALSE}
+#' @param layout boolean indicating whether \code{mcrPlot} should prespecify
+#' a layout for a single plot (default, \code{TRUE}) or whether the user
+#' takes care of the layout (\code{FALSE})
+#' @param main Main title for the scores plot; if not supplied, 'Scores Plot'
+#' is used as a defaul
+#' @param sub Subtitle for the scores plot; if not supplied, the classification
+#' technique and the chosen number of features are displayed
+#' @param ... Additional graphical parameters to pass to the plot functio
+#' @return no returned value, a plot is drawn in the current device.
+#' @examples 
+#' \dontrun{
+#'   if (require(ALL)){
+#'   data(ALL, package = "ALL")
+#'     ALL <- addGeneInfo(ALL)
+#'     ALL$BTtype <- as.factor(substr(ALL$BT,0,1))
+#'     logRegRes <- logReg(geneSymbol = "HLA-DPB1", object = ALL, groups = "BTtype")
+#'     # scoresplot
+#'     probabilitiesPlot(proportions = logRegRes$fit, classVar = logRegRes$y,
+#'       sampleNames = rownames(logRegRes), main = 'Probability of being a T-cell type ALL')
+#'     # barplot
+#'     probabilitiesPlot(proportions = logRegRes$fit, classVar = logRegRes$y, barPlot=TRUE,
+#'       sampleNames = rownames(logRegRes), main = 'Probability of being a T-cell type ALL')
+#'   }
+#' }
+#' @seealso \code{\link{logReg}}
+#' @author Willem Talloen and Tobias Verbeke
+#' @importFrom graphics par layout plot axis abline points title rect barplot
+#' @importFrom grDevices rgb
+#' @export
 probabilitiesPlot <- function(proportions,
 		classVar,
 		sampleNames,
