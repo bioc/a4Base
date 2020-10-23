@@ -49,7 +49,7 @@ Wouters, L., Goehlmann, H., Bijnens, L., Kass, S.U., Molenberghs, G.,
     Microarrays, Chapman \& Hall/CRC, pp. 148 - 153.
 }
 \seealso{
-\code{\link{spectralMap-methods}}, \code{\link[mpm]{plot.mpm}}
+\code{\link[mpm]{plot.mpm}}
 }
 \author{
 Tobias Verbeke

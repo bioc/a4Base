@@ -3,6 +3,12 @@
 \docType{methods}
 \name{volcanoPlot-methods}
 \alias{volcanoPlot-methods}
+\alias{volcanoPlot,tTest,missing}
+\alias{volcanoPlot,tTest,character}
+\alias{volcanoPlot,limma,missing,missing}
+\alias{volcanoPlot,limma,missing,character}
+\alias{volcanoPlot,numeric,numeric,character}
+\alias{volcanoPlot,numeric,numeric,missing}
 \alias{volcanoPlot,tTest,missing,missing-method}
 \alias{volcanoPlot,tTest,missing,character-method}
 \alias{volcanoPlot,limma,missing,missing-method}
@@ -107,6 +113,47 @@
   additionalLabelColor = "red"
 )
 }
+\arguments{
+\item{x}{either an object of class 'tTest', of class 'limma' or a numeric vector of 
+log ratios, i.e. the log of the fold change values; the names of the logRatio vector 
+ will be used to display the names of the most interesting gene}
+
+\item{y}{should not be given if an object of class 'tTest' or 'limma' is passed as 
+argument 'x'; if 'x' is a numeric vector of log ratios, 'y' should be given and 
+should be a numeric vector of P-values indicating the statistical significance}
+
+\item{pointLabels}{Labels for points on the volcano plot that are interesting
+taking into account both the x and y dimensions; typically this is a
+vector of gene symbols; most methods can access the gene symbols directly from 
+the object passed as 'x' argument; the argument allows for custom labels if
+needed}
+
+\item{topPValues}{top n points that will be included in the points to label based
+on their low P Values}
+
+\item{topLogRatios}{top n points that will be included in the points to label based
+on their high absolute values of the log ratio}
+
+\item{smoothScatter}{use color saturation to indicate dots that are in densely
+populated regions of the graph; defaults to \code{TRUE}}
+
+\item{xlab}{label for the x axis (string)}
+
+\item{ylab}{label for the y axis (string)}
+
+\item{main}{main title for the graph (string)}
+
+\item{sub}{subtitle for the graph (string)}
+
+\item{newpage}{should the graph be drawn to a new grid page? Defaults to
+\code{TRUE}. This argument is useful for including several volcano plots 
+ in one layout.}
+
+\item{additionalPointsToLabel}{Entrez IDs of genes of interest, that will be highlighted on the plot; the color of highlighting is determined
+by the 'additionalLabelColor' argument.}
+
+\item{additionalLabelColor}{Color used to highlight the 'additionalPointsToLabel'; defaults to "red"}
+}
 \value{
 The volcano plot is drawn to the current device.
 }
@@ -120,41 +167,6 @@ The set of genes for which labels are displayed is the \emph{union} of the set o
  genes that have lowest P-values (\code{topPValues}) and the set of genes
  that display the highest absolute values for the log ratios (\code{topLogRatios}).
 }
-\section{Slots}{
-
-\describe{
-\item{\code{x}}{either an object of class 'tTest', or a numeric vector of log ratios, 
-i.e. the log of the fold change values;the names of the logRatio vector will be used to display the names of the most 
-interesting genes}
-
-\item{\code{y}}{should not be given if an object of class 'tTest' is passed as argument 'x';
-if 'x' is a numeric vector of log ratios, 'y' should be given and should be a 
-numeric vector of P-values indicating the statistical significance}
-
-\item{\code{pointLabels}}{Labels for points on the volcano plot that are interesting
-taking into account both the x and y dimensions; typically this is a
-vector of gene symbols; most methods can access the gene symbols directly from 
-the object passed as 'x' argument; the argument allows for custom labels if
-needed}
-
-\item{\code{topPValues}}{top n points that will be included in the points to label based
-on their low P Values}
-
-\item{\code{topLogRatios}}{top n points that will be included in the points to label based
-on their high absolute values of the log ratio}
-
-\item{\code{smoothScatter}}{use color saturation to indicate dots that are in densely
-populated regions of the graph; defaults to \code{TRUE}}
-
-\item{\code{xlab}}{label for the x axis (string)}
-
-\item{\code{ylab}}{label for the y axis (string)}
-
-\item{\code{main}}{main title for the graph (string)}
-
-\item{\code{sub}}{subtitle for the graph (string)}
-}}
-
 \author{
 Tobias Verbeke, based on code by Willem Talloen
 }

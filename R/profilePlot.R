@@ -318,7 +318,8 @@ plot1gene <- function (probesetId = NULL,
 #' @param legendPos Specify where the legend should be placed. Typically either \code{topright},
 #'    \code{bottomright}, \code{topleft} (the default) or \code{bottomleft}
 #' @param ... Possibility to add extra plot options. See \code{\link{par}}
-#' @return 
+#' @return A plot is drawn to the current device and
+#' \code{probesetId} are returned invisibly.
 #' @seealso \code{\link{plot1gene}}
 #' @examples 
 #' # simulated data set
@@ -551,6 +552,7 @@ plotCombination2genes <- function(probesetId1 = NULL, probesetId2 = NULL,
 #' @return No returned value, a plot is drawn in the current device.
 #' @seealso \code{\link{plot1gene}}, \code{\link{boxPlot}}
 #' @author W. Talloen
+#' @importFrom graphics matplot
 #' @export
 profilesPlot <- function (object, probesetIds, sampleIDs = TRUE, 
     addLegend = TRUE, legendPos = "topleft", colvec = NULL,

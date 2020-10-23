@@ -21,7 +21,7 @@
 #' @param probe2gene Boolean indicating whether the probeset should be translated to a gene symbol
 #' (used for the default title of the plot)
 #' @param ... Possibility to add extra plot options. See \code{\link{par}}
-#' @return 
+#' @return No returned value, a plot is drawn to the current device.
 #' @examples 
 #' if (require(ALL)){
 #'   data(ALL, package = "ALL")
@@ -87,7 +87,8 @@ panel.plotSmoothScat <- function(x, y, ...) {
 	abline(a=0, b=1, col="red")
 }
 
-#' @importFrom graphics par text
+#' @importFrom graphics par text strwidth
+#' @importFrom stats cor
 #' @importFrom stats cor.test symnum
 panel.cor <- function(x, y, digits=2, prefix="", cex.cor)
 {

@@ -96,7 +96,7 @@ createExpressionSet <-
 	if (is(exprs,'data.frame')) exprs <- as.matrix(exprs)
 	if (!is.null(featureData)){
 		out <- ExpressionSet( 
-				exprs=exprs,
+				assayData=exprs,
 				phenoData = phenoData,
 				featureData=featureData, 
 				experimentData = experimentData, 
@@ -104,7 +104,7 @@ createExpressionSet <-
 	}
 	else {
 		out <- ExpressionSet(
-				exprs=exprs,
+				assayData=exprs,
 				phenoData = phenoData,
 				experimentData = experimentData, 
 				annotation = annotation)
@@ -153,7 +153,7 @@ createExpressionSet <-
 #' @seealso \code{\link[Biobase]{ExpressionSet}}
 #' @author Eric Lecoutre
 #' @keywords data
-#' @importFrom Biobase AnnotatedDataFrame assayData
+#' @importFrom Biobase AnnotatedDataFrame assayData `assayData<-` varMetadata `phenoData<-` `pData<-`
 #' @export
 combineTwoExpressionSet <- function(x,y){
 # prioritary  keep information from x, append assayData and phylo data from y

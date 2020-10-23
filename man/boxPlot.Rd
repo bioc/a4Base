@@ -49,7 +49,8 @@ This should be a the name of a column in the \code{pData} of the \code{expressio
 \item{...}{Possibility to add extra plot options. See \code{\link{par}}}
 }
 \value{
-
+A plot is drawn to the current device and
+\code{probesetId} are returned invisibly.
 }
 \description{
 Create a boxplot for a given gene. The boxplot displays the expression values (y-axis)

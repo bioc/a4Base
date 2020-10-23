@@ -2,7 +2,7 @@ Package: a4Base
 Type: Package
 Title: Automated Affymetrix Array Analysis Base Package
 Version: 1.37.2
-Date: 2020-10-19
+Date: 2020-10-23
 Authors@R: c(
   person(given = "Willem", family = "Talloen", role = "aut"),
   person(given = "Tine", family = "Casneuf", role = "aut"),
@@ -13,11 +13,11 @@ Authors@R: c(
   person(given = "Tobias", family = "Verbeke", role = "aut", email = "tobias.verbeke@openanalytics.eu"),
   person(given = "Laure", family = "Cougnaud", role = "cre", email = "laure.cougnaud@openanalytics.eu")
  )
-Description: Automated Affymetrix Array Analysis
-Imports: methods, graphics, grid, Biobase, AnnotationDbi, annaffy, mpm,
+Description: Base utility functions are available for the Automated Affymetrix Array Analysis set of packages.
+Imports: methods, graphics, grid, Biobase, annaffy, mpm,
         genefilter, limma, multtest, glmnet, gplots
 Depends: a4Preproc, a4Core 
-Suggests: Cairo, ALL, hgu95av2.db
+Suggests: Cairo, ALL, hgu95av2.db, nlcv
 Enhances: gridSVG, JavaGD
 License: GPL-3
 biocViews: Microarray

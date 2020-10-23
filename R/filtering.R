@@ -40,6 +40,8 @@
 #' @author Willem Talloen
 #' @seealso \code{\link[genefilter]{pOverA}}, \code{\link[genefilter]{filterfun}}
 #' @keywords manip
+#' @importFrom genefilter pOverA filterfun genefilter
+#' @importFrom stats IQR
 #' @export
 filterVarInt <- function(object,
     IntCutOff = log2(100), # exclude low-expressed genes: genes with less than 6.6 on log2 scale 

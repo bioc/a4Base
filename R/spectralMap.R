@@ -4,11 +4,11 @@
 #'  defines the groups
 #' @param ... further arguments to be passed to the methods
 #' @author Tobias Verbeke
-#' @return   Object of class \code{plot.mpm}, i.e. the S3 output object of the \code{plot.mpm}
+#' @return Object of class \code{plot.mpm}, i.e. the S3 output object of the \code{plot.mpm}
 #' function of the \code{mpm} package
 #' @note Coloring of groups on the spectralMap uses the a4 palette as produced
 #'  by \code{a4palette}
-#' @seealso \code{\link{spectralMap-methods}}, \code{\link[mpm]{plot.mpm}}
+#' @seealso \code{\link[mpm]{plot.mpm}}
 #' @references 
 #' Wouters, L., Goehlmann, H., Bijnens, L., Kass, S.U., Molenberghs, G.,
 #'   Lewi, P.J. (2003). Graphical exploration of gene expression data: a
@@ -31,7 +31,7 @@
 #' 					zoom = c(1,5), col.size = 2, do.smoothScatter = TRUE))
 #' }
 #' @keywords hplot
-#' @export 
+#' @exportMethod spectralMap
 setGeneric("spectralMap", function(object, groups, ...){
       standardGeneric("spectralMap")
     })    
@@ -39,7 +39,10 @@ setGeneric("spectralMap", function(object, groups, ...){
 #' Methods for Function spectralMap according to JnJ Standards
 #' 
 #' Methods for spectralMap
-#' @param makeLognormalboolean indicating whether one wants to exponentiate the
+#' @param object object of class ExpressionSet
+#' @param groups string indicating the name of the column in the phenoData that
+#'  defines the groups
+#' @param makeLognormal boolean indicating whether one wants to exponentiate the
 #' 	data to make them lognormally shaped (\code{TRUE}; the default) or not 
 #' (\code{FALSE})
 #' @param mpm.args list of arguments that can be passed to the \code{mpm} function
@@ -49,16 +52,19 @@ setGeneric("spectralMap", function(object, groups, ...){
 #' 	for the labeled points (\code{TRUE}) or not (\code{FALSE}; the default)
 #' @param addLegend Boolean indicating whether a legend for the colors of the dots should be added.
 #' @param legendPos Specify where the legend should be placed. Typically either \code{topright},
-#' 	\code{bottomright}, \code{topleft} (the default) or \code{bottomleft} 
+#' @aliases spectralMap,ExpressionSet,character
+#' @param ... further arguments to be passed to the methods,
+#' currently not used.
 #' @return the plot is returned invisibly 
 #' @author Tobias Verbeke
 #' @docType methods
 #' @keywords methods hplot
-#' @importFrom Biobase pData exprs annotation sampleNames
+#' @importFrom Biobase `pData<-` pData exprs annotation sampleNames
 #' @importFrom mpm mpm plot.mpm
 #' @importFrom graphics par legend
-#' @export
+#' @importFrom stats na.omit
 #' @name spectralMap-methods
+#' @aliases volcanoPlot,ExpressionSet,character
 NULL
 
 #' @rdname spectralMap-methods

@@ -114,18 +114,15 @@ a shading if done between color.group and this color (default: white).}
 \item{row.labels.max.nchar}{Integer. Number of maximum characters to be used for labels truncation.}
 
 \item{row.labels}{Character vector or list. If vector, direct labels to be used. 
- If list, elements of the list will be taken from featureData and collapsed using row.labels.sep.
-%%  Can be a list    ~~Describe \code{row.labels} here~~}
+If list, elements of the list will be taken from featureData and collapsed using row.labels.sep.}
 
 \item{row.labels.sep}{In case labels are taken from featureData (list for row.labels), separator used to paste the provided columns.}
 
-\item{row.groups}{Boolean specifying whether rows are split into sub-groups. 
-%%     ~~Describe \code{row.groups} here~~}
+\item{row.groups}{Boolean specifying whether rows are split into sub-groups.}
 
 \item{row.order}{Either a vector of indices to be used to reorder features (rows) or "none" or "hclust" to use clustering.}
 
-\item{row.groups.hclust}{Boolean. If row.order equals "hclust", one can ask to split features into sub-groups based on a cut of the clustering dendogram.
-%%     ~~Describe \code{row.groups.hclust} here~~}
+\item{row.groups.hclust}{Boolean. If row.order equals "hclust", one can ask to split features into sub-groups based on a cut of the clustering dendogram.}
 
 \item{row.groups.hclust.n}{Integer. If row.order equals "hclust" and row.groups.hclust is TRUE, number of sub-groups.}
 
@@ -158,8 +155,7 @@ That ensures a maximal cutpoint for the coloring scale.}
 \item{subtitle.just}{Subtitle justification, 
 one of "center","left","right" (first letter of the word can also be used).}
 
-\item{subtitle.cutpoint}{Integer. Maximum number of characters a line must have. Subtitle is split into lines according to that cutpoint.
-%%Number of charact}
+\item{subtitle.cutpoint}{Integer. Maximum number of characters a line must have. Subtitle is split into lines according to that cutpoint.}
 
 \item{margin.top}{Object of class unit (grid package). Top margin.}
 

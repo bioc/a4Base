@@ -70,9 +70,6 @@ Workhorse function for the different volcanoPlot methods. A volcano plot
   significance) and log ratios (biological difference) of differential 
   expression for the given genes.
 }
-\seealso{
-\code{\link{volcanoPlot-methods}}
-}
 \author{
 Tobias Verbeke
 }

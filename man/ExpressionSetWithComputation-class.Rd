@@ -11,17 +11,17 @@ as well as descriptive information to the pData of the ExpressionSet
 \section{Slots}{
 
 \describe{
-\item{\code{\code{assayData}:Object}}{of class \code{"AssayData"}}
+\item{\code{assayData}}{Object of class \code{"AssayData"}}
 
-\item{\code{\code{phenoData}:}}{Object of class \code{"AnnotatedDataFrame"}}
+\item{\code{phenoData}}{Object of class \code{"AnnotatedDataFrame"}}
 
-\item{\code{\code{featureData}:}}{Object of class \code{"AnnotatedDataFrame"}}
+\item{\code{featureData}}{Object of class \code{"AnnotatedDataFrame"}}
 
-\item{\code{\code{experimentData}:}}{Object of class \code{"MIAME"}}
+\item{\code{experimentData}}{Object of class \code{"MIAME"}}
 
-\item{\code{\code{annotation}:}}{Object of class \code{"character"}}
+\item{\code{annotation}}{Object of class \code{"character"}}
 
-\item{\code{\code{.__classVersion__}:}}{Object of class \code{"Versions"}}
+\item{\code{.__classVersion__}}{Object of class \code{"Versions"}}
 }}
 
 \section{Objects from the Class}{

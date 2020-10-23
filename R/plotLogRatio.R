@@ -111,11 +111,12 @@
 #' @seealso \code{\link{computeLogRatio}},\code{\link{addQuantilesColors}}
 #' @author Hinrich Goehlmann and Eric Lecoutre
 #' @example inst/examples/plotLogRatio-example.R
-#' @importFrom Biobase featureNames featureData pData fData exprs openPDF
+#' @importFrom Biobase featureNames featureData pData fData exprs openPDF package.version
 #' @importFrom stats dist hclust quantile
-#' @importFrom grDevices rainbow pdf png dev.off
-#' @importFrom grid viewport pushViewport popViewport grid.rect grid.lines grid.segments grid.text gpar
+#' @importFrom grDevices rainbow pdf png dev.off x11 colors
+#' @importFrom grid viewport pushViewport popViewport grid.rect grid.lines grid.segments grid.text gpar gPath
 #' @importFrom utils browseURL
+#' @importFrom a4Preproc addGeneInfo
 #' @export
 plotLogRatio <- function(
 		e,
@@ -185,14 +186,14 @@ plotLogRatio <- function(
 	if (!(device %in% c('svg','pdf','x11','png','cairopng', 'javagd'))) 
     stop("Unknown device - use one of: svg, pdf, x11, png, javagd")
 	if (device == "svg"){
-		stopifnot(require(gridSVG))
+		stopifnot(requireNamespace("gridSVG"))
 		stopifnot(interactive())
 	}
 	if (device == "cairopng"){
-    	stopifnot(require(Cairo))
+    	stopifnot(requireNamespace("Cairo"))
   	}
 	if(device == "javagd"){
-		stopifnot(require(JavaGD))
+		stopifnot(requireNamespace("JavaGD"))
 	}
 	
 	# we now work with the complete ExpressionSet object enriched with statistics (name: e)

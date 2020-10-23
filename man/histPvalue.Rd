@@ -21,7 +21,7 @@ or an object of class \code{tTest}, \code{limma} or \code{MArrayLM}}
 
 \item{...}{further arguments passed to the method}
 
-\item{index}{of the coefficient for which the p values should be plotted;
+\item{coef}{index of the coefficient for which the p values should be plotted;
 only applies to the MArrayLM method}
 }
 \value{

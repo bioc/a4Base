@@ -3,6 +3,8 @@
 \docType{methods}
 \name{spectralMap-methods}
 \alias{spectralMap-methods}
+\alias{spectralMap,ExpressionSet,character}
+\alias{volcanoPlot,ExpressionSet,character}
 \alias{spectralMap,ExpressionSet,character-method}
 \title{Methods for Function spectralMap according to JnJ Standards}
 \usage{
@@ -21,6 +23,15 @@
 )
 }
 \arguments{
+\item{object}{object of class ExpressionSet}
+
+\item{groups}{string indicating the name of the column in the phenoData that
+defines the groups}
+
+\item{makeLognormal}{boolean indicating whether one wants to exponentiate the
+    data to make them lognormally shaped (\code{TRUE}; the default) or not 
+(\code{FALSE})}
+
 \item{mpm.args}{list of arguments that can be passed to the \code{mpm} function}
 
 \item{plot.mpm.args}{list of arguments that can be passed to the 
@@ -31,12 +42,10 @@ for the labeled points (\code{TRUE}) or not (\code{FALSE}; the default)}
 
 \item{addLegend}{Boolean indicating whether a legend for the colors of the dots should be added.}
 
-\item{legendPos}{Specify where the legend should be placed. Typically either \code{topright},
-\code{bottomright}, \code{topleft} (the default) or \code{bottomleft}}
+\item{legendPos}{Specify where the legend should be placed. Typically either \code{topright},}
 
-\item{makeLognormalboolean}{indicating whether one wants to exponentiate the
-    data to make them lognormally shaped (\code{TRUE}; the default) or not 
-(\code{FALSE})}
+\item{...}{further arguments to be passed to the methods,
+currently not used.}
 }
 \value{
 the plot is returned invisibly

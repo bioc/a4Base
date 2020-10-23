@@ -30,41 +30,36 @@ setGeneric("histPvalue", function(object, ...){
       standardGeneric("histPvalue")
 })    
 
-#' @export 
-#' @inheritParams histPvalue
-#' @importFrom limma topTable
 #' @rdname histPvalue
+#' @export 
 setMethod("histPvalue", "limma",
     function(object, ...){
     
     nGenes <- length(object@geneSymbols)
     
     # currently default of coef = 2 is OK (as only limmaTwoLevels generates an object of class 'limma')
-    pValue <- topTable(object, coef = 2, n = nGenes)$P.Value
+    pValue <- a4Base::topTable(object, coef = 2, n = nGenes)$P.Value
     
     histpvalueplotter(pValue = pValue, ...)      
 })
 
-#' @param index of the coefficient for which the p values should be plotted;
+#' @param coef index of the coefficient for which the p values should be plotted;
 #'  only applies to the MArrayLM method
-#' @inheritParams histPvalue
-#' @export
-#' @importFrom limma topTable
 #' @rdname histPvalue
+#' @export
 setMethod("histPvalue", "MArrayLM",
     function(object, coef, ...){
       
       if (missing(coef))
         stop("Please specify a 'coef' argument to select a coefficient for which the P values should be displayed.")
       
-      pValue <- topTable(object, coef = coef, n = nrow(object))$P.Value
+      pValue <- a4Base::topTable(object, coef = coef, n = nrow(object))$P.Value
       
       histpvalueplotter(pValue = pValue, ...)      
     })
 
-#' @inheritParams histPvalue
-#' @export
 #' @rdname histPvalue
+#' @export
 setMethod("histPvalue", "numeric",
     function(object, ...){
     histpvalueplotter(pValue = object, ...)      

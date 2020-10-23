@@ -11,6 +11,9 @@ limmaReg(object, covariable, probe2gene = TRUE)
 \item{object}{object of class ExpressionSet}
 
 \item{covariable}{string indicating the variable defining the continuous covariate}
+
+\item{probe2gene}{logical; if \code{TRUE} Affymetrix probeset IDs are translated
+into gene symbols; if \code{FALSE} no such translation is done}
 }
 \description{
 Wrapper for the limma function for the comparison of two groups 

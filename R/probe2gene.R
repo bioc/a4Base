@@ -17,6 +17,7 @@
 #' }
 #' @keywords manip
 #' @importFrom annaffy aafSymbol getText
+#' @export
 probe2gene <- function(probesetIds, chipPkg){
   # DB-based annotation
   featureSymbols <- aafSymbol(probesetIds, chipPkg)

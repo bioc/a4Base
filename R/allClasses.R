@@ -23,12 +23,12 @@ setClass("limma",
 #' Class \code{\link[Biobase]{Versioned}}, by class "ExpressionSet", distance 4.
 #' @section Methods:
 #' No methods defined with class "ExpressionSetWithComputation" in the signature.
-#' @slot \code{assayData}:Object of class \code{"AssayData"}
-#' @slot \code{phenoData}: Object of class \code{"AnnotatedDataFrame"}
-#' @slot \code{featureData}: Object of class \code{"AnnotatedDataFrame"}
-#' @slot \code{experimentData}: Object of class \code{"MIAME"}
-#' @slot \code{annotation}: Object of class \code{"character"}
-#' @slot \code{.__classVersion__}: Object of class \code{"Versions"}
+#' @slot assayData Object of class \code{"AssayData"}
+#' @slot phenoData Object of class \code{"AnnotatedDataFrame"}
+#' @slot featureData Object of class \code{"AnnotatedDataFrame"}
+#' @slot experimentData Object of class \code{"MIAME"}
+#' @slot annotation Object of class \code{"character"}
+#' @slot .__classVersion__ Object of class \code{"Versions"}
 #' @author Tobias Verbeke
 #' @seealso \code{\link[Biobase]{ExpressionSet}}, \code{\link{computeLogRatio}}
 #' @keywords classes

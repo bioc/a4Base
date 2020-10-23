@@ -29,7 +29,7 @@
 #' @seealso See \code{\link{volcanoplotter}}
 #' @author Tobias Verbeke, based on code by Willem Talloen
 #' @keywords dplot
-#' @export
+#' @exportMethod volcanoPlot
 setGeneric("volcanoPlot", function(x, y, pointLabels, ...){
       standardGeneric("volcanoPlot")
 })
@@ -43,36 +43,48 @@ setGeneric("volcanoPlot", function(x, y, pointLabels, ...){
 #' The set of genes for which labels are displayed is the \emph{union} of the set of
 #'  genes that have lowest P-values (\code{topPValues}) and the set of genes
 #'  that display the highest absolute values for the log ratios (\code{topLogRatios}).
-#' @slot x either an object of class 'tTest', or a numeric vector of log ratios, 
-#' i.e. the log of the fold change values;the names of the logRatio vector will be used to display the names of the most 
-#' interesting genes
-#' @slot y should not be given if an object of class 'tTest' is passed as argument 'x';
-#' if 'x' is a numeric vector of log ratios, 'y' should be given and should be a 
-#' numeric vector of P-values indicating the statistical significance
-#' @slot pointLabels Labels for points on the volcano plot that are interesting
-#' taking into account both the x and y dimensions; typically this is a
-#' vector of gene symbols; most methods can access the gene symbols directly from 
-#' the object passed as 'x' argument; the argument allows for custom labels if
-#' needed
-#' @slot topPValues top n points that will be included in the points to label based
+#' @param x either an object of class 'tTest', of class 'limma' or a numeric vector of 
+#'   log ratios, i.e. the log of the fold change values; the names of the logRatio vector 
+#'    will be used to display the names of the most interesting gene
+#' @param y should not be given if an object of class 'tTest' or 'limma' is passed as 
+#'     argument 'x'; if 'x' is a numeric vector of log ratios, 'y' should be given and 
+#'     should be a numeric vector of P-values indicating the statistical significance
+#' @param pointLabels Labels for points on the volcano plot that are interesting
+#'    taking into account both the x and y dimensions; typically this is a
+#'    vector of gene symbols; most methods can access the gene symbols directly from 
+#'    the object passed as 'x' argument; the argument allows for custom labels if
+#'    needed
+#' @param topPValues top n points that will be included in the points to label based
 #' on their low P Values
-#' @slot topLogRatios top n points that will be included in the points to label based
+#' @param topLogRatios top n points that will be included in the points to label based
 #'  on their high absolute values of the log ratio
-#' @slot smoothScatter use color saturation to indicate dots that are in densely
+#' @param smoothScatter use color saturation to indicate dots that are in densely
 #' populated regions of the graph; defaults to \code{TRUE} 
-#' @slot xlab label for the x axis (string)
-#' @slot ylab label for the y axis (string)
-#' @slot main main title for the graph (string)
-#' @slot sub subtitle for the graph (string)
+#' @param xlab label for the x axis (string)
+#' @param ylab label for the y axis (string)
+#' @param main main title for the graph (string)
+#' @param sub subtitle for the graph (string)
+#' @param newpage should the graph be drawn to a new grid page? Defaults to
+#' \code{TRUE}. This argument is useful for including several volcano plots 
+#'  in one layout.
+#' @param additionalPointsToLabel Entrez IDs of genes of interest, that will be highlighted on the plot; the color of highlighting is determined
+#' by the 'additionalLabelColor' argument.
+#' @param additionalLabelColor Color used to highlight the 'additionalPointsToLabel'; defaults to "red"
 #' @return The volcano plot is drawn to the current device.
 #' @author Tobias Verbeke, based on code by Willem Talloen
 #' @keywords dplot
+#' @docType methods
 #' @name volcanoPlot-methods
+#' @aliases volcanoPlot,tTest,missing
+#' @aliases volcanoPlot,tTest,character
+#' @aliases volcanoPlot,limma,missing,missing
+#' @aliases volcanoPlot,limma,missing,character
+#' @aliases volcanoPlot,numeric,numeric,character
+#' @aliases volcanoPlot,numeric,numeric,missing
 NULL
 
 #' volcanoPlot for an object resulting from \code{tTest}
 #' @rdname volcanoPlot-methods
-#' @docType methods
 #' @export
 setMethod("volcanoPlot",
 	signature(x = "tTest", 
@@ -128,7 +140,6 @@ setMethod("volcanoPlot",
 
 #' volcanoPlot for an object resulting from \code{limma2Groups}
 #' @rdname volcanoPlot-methods
-#' @docType methods
 #' @export
 setMethod("volcanoPlot",
     signature(x = "limma", 
@@ -156,7 +167,6 @@ setMethod("volcanoPlot",
 
 #' volcanoPlot for an object resulting from \code{limma2Groups}
 #' @rdname volcanoPlot-methods
-#' @docType methods
 #' @export
 setMethod("volcanoPlot",
     signature(x = "limma", 
@@ -183,7 +193,6 @@ setMethod("volcanoPlot",
 #' volcanoPlot for arbitrary numeric vectors 
 #' containing log ratio values and p values respectively
 #' @rdname volcanoPlot-methods
-#' @docType methods
 #' @export
 setMethod("volcanoPlot",
     signature(x = "numeric", 
@@ -209,7 +218,6 @@ setMethod("volcanoPlot",
 #' volcanoPlot for arbitrary numeric vectors containing 
 #' log ratio values and p values respectively
 #' @rdname volcanoPlot-methods
-#' @docType methods
 #' @export
 setMethod("volcanoPlot",
     signature(x = "numeric", 
@@ -277,13 +285,13 @@ setMethod("volcanoPlot",
 #'     by the 'additionalLabelColor' argument.
 #' @param additionalLabelColor Color used to highlight the 'additionalPointsToLabel'; defaults to "red"
 #' @return a volcanoplot is drawn to the current device
-#' @seealso \code{\link{volcanoPlot-methods}}
 #' @author Tobias Verbeke
 #' @keywords dplot
 #' @importFrom grid grid.newpage plotViewport pushViewport 
 #'  textGrob gpar unit grobWidth convertHeight dataViewport 
 #'  grid.pretty xaxisGrob grid.yaxis 
 #'  editGrob gEditList gEdit grid.draw grid.points grid.text
+#'  current.viewport
 #' @importFrom grDevices densCols
 #' @export
 volcanoplotter <- function(logRatio, pValue, pointLabels,

@@ -44,8 +44,8 @@ limmaTwoLevels <- function(object, group, probe2gene = TRUE){
 #' Wrapper for the limma function for the comparison of two groups 
 #' (two factor levels)
 #' 
-#' @param object object of class ExpressionSet
 #' @param covariable string indicating the variable defining the continuous covariate
+#' @inheritParams limmaTwoLevels
 #' @importFrom Biobase pData featureData
 #' @importFrom limma lmFit eBayes
 #' @importFrom methods new
@@ -75,9 +75,14 @@ limmaReg <- function(object, covariable, probe2gene = TRUE){
 # coef = 2 because we are not interested whether the intercept is significant 
 # but whether group 2 is significantly different from group 1
 
-#' @export
-#' @importFrom limma eBayes topTableF topTable
+#' @param eb subset of \code{fit} containing
+#' Empirical Bayesian estimates, so 
+#' columns: 't', 'p-value' and 'lods' by default.
+#' For expert use only.
+#' @inheritParams limma::topTableF
+#' @importFrom limma eBayes topTableF
 #' @rdname topTable-methods
+#' @export
 setMethod("topTable", "limma",
     function(fit, n = 10, coef = 2, genelist = fit$genes, 
         eb = fit[c("t", "p.value", "lods")], adjust.method = "BH",
@@ -92,14 +97,14 @@ setMethod("topTable", "limma",
           fit <- eBayes(fit[, coef])
         if (sort.by == "B") 
           sort.by <- "F"
-        return(topTableF(fit, number = number, genelist = genelist, 
+        return(topTableF(fit, number = n, genelist = genelist, 
                 adjust.method = adjust.method, sort.by = sort.by, 
                 p.value = p.value))
       }
       fit <- unclass(fit)
-      topTable(fit = fit[c("coefficients", "stdev.unscaled")], 
+	  limma:::.topTableT(fit = fit[c("coefficients", "stdev.unscaled")], 
           coef = coef, number = n, genelist = fit$genes, A = fit$Amean, 
-          eb = fit[c("t", "p.value", "lods")], adjust.method = "BH", 
+          eb = eb, adjust.method = "BH", 
           sort.by = sort.by, resort.by = resort.by, p.value = p.value, 
           lfc = lfc)
 })
@@ -107,7 +112,7 @@ setMethod("topTable", "limma",
 ### redefine as well for MArrayLM objects
 
 #' @export
-#' @importFrom limma eBayes topTableF topTable
+#' @importFrom limma eBayes topTableF
 #' @rdname topTable-methods
 setMethod("topTable", "MArrayLM",
     function(fit, n, coef = 2, genelist = fit$genes, 
@@ -125,16 +130,18 @@ setMethod("topTable", "MArrayLM",
           fit <- eBayes(fit[, coef])
         if (sort.by == "B") 
           sort.by <- "F"
-        return(topTableF(fit, number = number, genelist = genelist, 
+        return(topTableF(fit, number = n, genelist = genelist, 
                 adjust.method = adjust.method, sort.by = sort.by, 
                 p.value = p.value))
       }
       fit <- unclass(fit)
-      topTable(fit = fit[c("coefficients", "stdev.unscaled")], 
+	  limma:::.topTableT(
+			fit = fit[c("coefficients", "stdev.unscaled")], 
           coef = coef, number = n, genelist = fit$genes, A = fit$Amean, 
-          eb = fit[c("t", "p.value", "lods")], adjust.method = "BH", 
+          eb = eb, adjust.method = "BH", 
           sort.by = sort.by, resort.by = resort.by, p.value = p.value, 
-          lfc = lfc)
+          lfc = lfc
+  	)
     })
 
 

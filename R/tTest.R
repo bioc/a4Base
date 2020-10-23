@@ -76,6 +76,9 @@ tTest <- function(object, groups, probe2gene = TRUE){
 	return(pvalues)
 }
 
+#' @importFrom genefilter rowFtests
+#' @importFrom multtest mt.rawp2adjp
+#' @importFrom Biobase featureData
 fTest <- function(object, groups, probe2gene = TRUE, varEqual = FALSE){
 	# t-test for differential expression
 	ttests <- rowFtests(object, groups, var.equal = varEqual)
@@ -119,7 +122,7 @@ setOldClass("tTest")
 #' 
 #' Methods for topTable. topTable extracts the top n most important features
 #' for a given classification or regression procedure 
-#' \section{Methods}{
+#' @section Methods:
 #' \describe{
 #' glmnet
 #' \item{fit = "glmnet", n = "numeric"}{glmnet objects are produced by \code{lassoClass} or \code{lassoReg}}
@@ -136,7 +139,6 @@ setOldClass("tTest")
 #' fTest
 #' \item{fit = "fTest", n = "numeric"}{fTest objects are produced by \code{fTest}}
 #' }
-#' }
 #' @param fit object resulting from a classification or regression procedure
 #' @param n number of features that one wants to extract from a table that
 #' ranks all features according to their importance in the classification
@@ -144,14 +146,18 @@ setOldClass("tTest")
 #' @seealso \code{\link[a4Core]{topTable,glmnet-method}},
 #' \code{\link[a4Core]{topTable,lognet-method}},
 #' \code{\link[a4Core]{topTable,elnet-method}},
-#' \code{\link[a4Classif]{pamClass,lognet-method}},
-#' \code{\link[a4Classif]{rfClass,elnet-method}},
+#' \code{\link[a4Classif]{topTable,pamClass-method}},
+#' \code{\link[a4Classif]{topTable,rfClass-method}}
 #' @keywords methods manip
 #' @docType methods
 #' @name topTable-methods
+#' @aliases topTable,tTest
+#' @aliases topTable,fTest
+#' @aliases topTable,limma
+#' @aliases topTable,MArrayLM
 NULL
 
-#' @docType methods
+#' @importFrom utils head
 #' @rdname topTable-methods
 #' @export
 setMethod("topTable", "tTest",
@@ -162,8 +168,8 @@ setMethod("topTable", "tTest",
 setOldClass("fTest")
 
 
+#' @importFrom utils head
 #' @rdname topTable-methods
-#' @docType methods
 #' @export
 setMethod("topTable", "fTest",
 		function(fit, n){
@@ -171,6 +177,7 @@ setMethod("topTable", "fTest",
 })
 
 
+#' @importFrom stats t.test
 tTest2 <- function(object, groups, probe2gene = TRUE){
 	groups <- pData(object)[, groups]
 	testData <- exprs(object)

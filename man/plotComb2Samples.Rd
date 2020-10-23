@@ -34,7 +34,7 @@ genes should be highlighted by their gene symbol.}
 \item{...}{Possibility to add extra plot options. See \code{\link{par}}}
 }
 \value{
-
+No returned value, a plot is drawn to the current device.
 }
 \description{
 Plots the correlation in gene expression between two samples. Each dot represents

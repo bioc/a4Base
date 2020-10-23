@@ -1,6 +1,18 @@
 
 #' Generic function to compute the proportion of differentially expressed
 #'   genes that are present
+#' @param object object of class \code{propDEgene}
+#' @param ... further arguments for the method (currently none implemented)
+#' @return numeric of length one giving the proportion of differentially expressed genes
+#' @author Willem Talloen and Tobias Verbeke
+#' @keywords htest
+#' @exportMethod propDEgenes
+setGeneric("propDEgenes", function(object, ...){
+      standardGeneric("propDEgenes")
+    })
+
+#' Generic function to compute the proportion of differentially expressed
+#'   genes that are present
 #' @section Methods:
 #' \describe{
 #' limma
@@ -13,28 +25,26 @@
 #' @param ... further arguments for the method (currently none implemented)
 #' @return numeric of length one giving the proportion of differentially expressed genes
 #' @author Willem Talloen and Tobias Verbeke
-#' @seealso \code{\link{propDEgenes-methods}}
 #' @keywords htest
-#' @rdname propDEgenes-methods
-#' @export
-setGeneric("propDEgenes", function(object, ...){
-      standardGeneric("propDEgenes")
-    })
+#' @docType methods
+#' @name propDEgenes-methods
+#' @aliases propDEgenes,limma
+#' @aliases propDEgenes,numeric
+NULL
 
-#' @rdname propDEgenes-methods
-#' @importFrom limma topTable
 #' @export
+#' @rdname propDEgenes-methods
 setMethod("propDEgenes", "limma",
     function(object, ...){
       
       nGenes <- length(object@geneSymbols)
-      pValue <- topTable(object, n = nGenes)$P.Value
+      pValue <- a4Base::topTable(object, n = nGenes)$P.Value
       
       propdegenescalculation(pValue = pValue)
 })
 
-#' @rdname propDEgenes-methods
 #' @export
+#' @rdname propDEgenes-methods
 setMethod("propDEgenes", "numeric",
     function(object, ...){
       
