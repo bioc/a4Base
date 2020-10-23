@@ -62,7 +62,7 @@ plotComb2Samples <- function(object, x, y,
 		pointsToLabel <- XpointsToLabel & YpointsToLabel
 	}
 	
-	plot(x, y, axes=F, type="n", ...)
+	plot(x, y, axes = FALSE, type="n", ...)
 	axis(1, lwd = 1.5, las = 1); axis(2, lwd = 1.5, las = 1)
 	box(bty='l',lwd = 1.5)
 	
@@ -78,10 +78,10 @@ plotComb2Samples <- function(object, x, y,
 }
 
 #### Scatterplot matrix with density-dependent coloring
-#' @importFrom graphics points points abline
+#' @importFrom graphics points abline
 #' @importFrom grDevices densCols
 panel.plotSmoothScat <- function(x, y, ...) {
-	points(x, y, axes=F, type="n", main="", xlab="", ylab="", ...)
+	points(x, y, type="n", main="", xlab="", ylab="", ...)
 	dotColors <- densCols(x, y)
 	points(x, y, pch = 20, cex = 1, col = dotColors)
 	abline(a=0, b=1, col="red")
@@ -125,5 +125,10 @@ panel.cor <- function(x, y, digits=2, prefix="", cex.cor)
 #' @importFrom graphics pairs
 #' @export
 plotCombMultSamples <- function(exprsMatrix, ...){
-	pairs(exprsMatrix, lower.panel = panel.cor, upper.panel = panel.plotSmoothScat, ...)
+	pairs(
+		exprsMatrix, 
+		lower.panel = panel.cor, 
+		upper.panel = panel.plotSmoothScat, 
+		...
+	)
 }
