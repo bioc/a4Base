@@ -1,6 +1,7 @@
 1.37.2
     o use Imports rather than Depends + use roxygen2 for documentation
     o use Authors@R
+    o replace toptable (deprecated in limma 3.36.0) by limma:::.topTableT 
 1.37.1
     o spectralMap: fix legend win-32
 1.4.1
