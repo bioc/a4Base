@@ -32,7 +32,7 @@ newE <- combineTwoExpressionSet(eH2009,eSKOV3)
 }
 }
 \seealso{
-\code{\link[Biobase]{ExpressionSet}}
+\code{\linkS4class{ExpressionSet}}
 }
 \author{
 Eric Lecoutre

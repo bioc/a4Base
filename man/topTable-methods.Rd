@@ -108,11 +108,11 @@ fTest
 }
 
 \seealso{
-\code{\link[a4Core]{topTable,glmnet-method}},
-\code{\link[a4Core]{topTable,lognet-method}},
-\code{\link[a4Core]{topTable,elnet-method}},
-\code{\link[a4Classif]{topTable,pamClass-method}},
-\code{\link[a4Classif]{topTable,rfClass-method}}
+\itemize{
+\item{\code{\link[a4Core]{topTable-methods}} for: }{ glmnet, lognet and elnet}
+\item{\code{\link[a4Classif]{topTable,pamClass-method}}} 
+\item{\code{\link[a4Classif]{topTable,rfClass-method}}}
+}
 }
 \keyword{manip}
 \keyword{methods}

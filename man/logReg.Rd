@@ -32,7 +32,7 @@ in the \code{featureData} of the \code{expressionSet} object.}
 \item{probe2gene}{Boolean indicating whether the probeset should be translated to a gene symbol
 (used for the default title of the plot)}
 
-\item{...}{Possibility to add extra plot options. See \code{\link[graphics]{plot}}}
+\item{...}{Possibility to add extra plot options. See \code{\link[base]{plot}}}
 }
 \value{
 A data.frame object with three columns and rownames

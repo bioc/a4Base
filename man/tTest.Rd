@@ -41,7 +41,7 @@ if (require(ALL)){
 }
 }
 \seealso{
-\code{\link[genefilter]{rowttests}}
+\code{rowttests} in \code{\link[genefilter]{rowFtests}}
 }
 \author{
 Willem Talloen, Tobias Verbeke

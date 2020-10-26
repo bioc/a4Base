@@ -13,7 +13,7 @@
 #' @param main Main title on top of the gra
 #' @param probe2gene Boolean indicating whether the probeset should be translated to a gene symbol
 #'  (used for the default title of the plot)
-#' @param ... Possibility to add extra plot options. See \code{\link[graphics]{plot}}
+#' @param ... Possibility to add extra plot options. See \code{\link[base]{plot}}
 #' @details 
 #' It will always estimate probability scores to belong to the second level
 #' of the factor variable. If a probability score to other level is preferred,
@@ -43,7 +43,7 @@
 #' }
 #' @importFrom Biobase exprs featureData featureNames pData
 #' @importFrom stats glm fitted
-#' @importFrom graphics par plot lines axis
+#' @importFrom graphics par lines axis
 #' @export
 logReg <- function(object, groups, probesetId = NULL, 
 		geneSymbol = NULL, main = NULL, probe2gene = TRUE, ...){
@@ -91,7 +91,7 @@ logReg <- function(object, groups, probesetId = NULL,
 	logRes <- logRes[order(logRes$x),]
 	
 	par(mar = c(5, 4, 4, 7) + 0.1)
-	plot(logRes$x, as.numeric(logRes$y)-1, axes=FALSE,
+	plot(x = logRes$x, y = as.numeric(logRes$y)-1, axes=FALSE,
 			pch = 21, bg = dotCol, 
 			xlab=expression(log[2] ~ intensity), 
 			ylab= paste('Probability of being',levels(labels)[2]),

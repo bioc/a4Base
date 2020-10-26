@@ -1,8 +1,8 @@
 Package: a4Base
 Type: Package
 Title: Automated Affymetrix Array Analysis Base Package
-Version: 1.37.2
-Date: 2020-10-23
+Version: 1.37.3
+Date: 2020-10-26
 Authors@R: c(
   person(given = "Willem", family = "Talloen", role = "aut"),
   person(given = "Tine", family = "Casneuf", role = "aut"),

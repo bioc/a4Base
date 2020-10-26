@@ -23,13 +23,13 @@ createExpressionSet(
 
 \item{varMetadata}{optional metadata on phenotype data}
 
-\item{dimLabels}{see \code{\link[Biobase]{ExpressionSet}}}
+\item{dimLabels}{see \code{\linkS4class{ExpressionSet}}}
 
-\item{featureData}{see \code{\link[Biobase]{ExpressionSet}}}
+\item{featureData}{see \code{\linkS4class{ExpressionSet}}}
 
-\item{experimentData}{see \code{\link[Biobase]{ExpressionSet}}}
+\item{experimentData}{see \code{\linkS4class{ExpressionSet}}}
 
-\item{annotation}{see \code{\link[Biobase]{ExpressionSet}}}
+\item{annotation}{see \code{\linkS4class{ExpressionSet}}}
 
 \item{changeColumnsNames}{Change exprs columns names -- see details}
 
@@ -58,7 +58,7 @@ rownames(ToBePheno) <- paste("sample", 1:4, sep = "_")
 eset <- createExpressionSet(exprs = x, phenoData = ToBePheno)
 }
 \seealso{
-\code{\link[Biobase]{ExpressionSet}}
+\code{\linkS4class{ExpressionSet}}
 }
 \author{
 Eric Lecoutre

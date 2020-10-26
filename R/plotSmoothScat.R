@@ -33,7 +33,7 @@
 #' @seealso \code{\link{plotCombMultSamples}}
 #' @author W. Talloen
 #' @importFrom Biobase exprs featureData
-#' @importFrom graphics plot axis box points text
+#' @importFrom graphics axis box points text
 #' @importFrom grDevices densCols
 #' @export
 plotComb2Samples <- function(object, x, y,

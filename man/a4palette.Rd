@@ -34,7 +34,7 @@ For n = 1, \code{"blue"} is returned; for n = 2
  par(op)
 }
 \seealso{
-\code{\link[grDevices]{rainbow}}
+\code{rainbow} palette in \code{\link[grDevices]{palettes}}
 }
 \author{
 Steven Osselaer, Tobias Verbeke

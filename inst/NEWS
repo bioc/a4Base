@@ -1,3 +1,5 @@
+1.37.3
+    o fix specification of link for fct with different name help page
 1.37.2
     o use Imports rather than Depends + use roxygen2 for documentation
     o use Authors@R

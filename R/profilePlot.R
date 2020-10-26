@@ -65,7 +65,7 @@ oaPalette <- function(numColors = NULL, alpha = 1.0){
 #' @return a character vector of colors
 #' 
 #' @author Steven Osselaer, Tobias Verbeke
-#' @seealso \code{\link[grDevices]{rainbow}}
+#' @seealso \code{rainbow} palette in \code{\link[grDevices]{palettes}}
 #' @examples 
 #'  op <- par(mfrow = c(2, 3))
 #'  for (nGroups in 1:6)
@@ -148,7 +148,7 @@ a4palette <- function(n, alpha = 1.0, Janssen = FALSE){
 #' }
 #' @keywords dplot
 #' @importFrom Biobase pData featureData featureNames exprs
-#' @importFrom graphics plot points axis mtext lines legend
+#' @importFrom graphics points axis mtext lines legend
 #' @export
 plot1gene <- function (probesetId = NULL, 
     geneSymbol = NULL, 

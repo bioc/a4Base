@@ -30,7 +30,7 @@
 #'   volcanoPlot(tTestRes)  
 #' }
 #' @author Willem Talloen, Tobias Verbeke
-#' @seealso \code{\link[genefilter]{rowttests}}
+#' @seealso \code{rowttests} in \code{\link[genefilter]{rowFtests}}
 #' @keywords htest
 #' @importFrom genefilter rowttests
 #' @importFrom multtest mt.rawp2adjp
@@ -143,11 +143,12 @@ setOldClass("tTest")
 #' @param n number of features that one wants to extract from a table that
 #' ranks all features according to their importance in the classification
 #' or regression model; defaults to 10 for limma objects
-#' @seealso \code{\link[a4Core]{topTable,glmnet-method}},
-#' \code{\link[a4Core]{topTable,lognet-method}},
-#' \code{\link[a4Core]{topTable,elnet-method}},
-#' \code{\link[a4Classif]{topTable,pamClass-method}},
-#' \code{\link[a4Classif]{topTable,rfClass-method}}
+#' @seealso 
+#' \itemize{
+#' \item{\code{\link[a4Core]{topTable-methods}} for: }{ glmnet, lognet and elnet}
+#' \item{\code{\link[a4Classif]{topTable,pamClass-method}}} 
+#' \item{\code{\link[a4Classif]{topTable,rfClass-method}}}
+#' }
 #' @keywords methods manip
 #' @docType methods
 #' @name topTable-methods

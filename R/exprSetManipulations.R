@@ -9,10 +9,10 @@
 #' @param exprs gene expression matrix
 #' @param phenoData phenotype data associated with exprs columns, as a matrix or data.frame
 #' @param varMetadata optional metadata on phenotype data
-#' @param dimLabels see \code{\link[Biobase]{ExpressionSet}}
-#' @param featureData see \code{\link[Biobase]{ExpressionSet}}
-#' @param experimentData see \code{\link[Biobase]{ExpressionSet}}
-#' @param annotation see \code{\link[Biobase]{ExpressionSet}}
+#' @param dimLabels see \code{\linkS4class{ExpressionSet}}
+#' @param featureData see \code{\linkS4class{ExpressionSet}}
+#' @param experimentData see \code{\linkS4class{ExpressionSet}}
+#' @param annotation see \code{\linkS4class{ExpressionSet}}
 #' @param changeColumnsNames Change exprs columns names -- see details
 #' @param ... \code{\dots}
 #' @details
@@ -30,7 +30,7 @@
 #' eset <- createExpressionSet(exprs = x, phenoData = ToBePheno)
 #' @return An object of class ExpressionSet
 #' @author Eric Lecoutre
-#' @seealso \code{\link[Biobase]{ExpressionSet}}
+#' @seealso \code{\linkS4class{ExpressionSet}}
 #' @keywords data
 #' @importFrom Biobase AnnotatedDataFrame ExpressionSet MIAME
 #' @export
@@ -150,7 +150,7 @@ createExpressionSet <-
 #' eSKOV3  <- prepareExpressionSet(exprs = data.SKOV3, phenoData = phenoData.SKOV3, changeColumnsNames = TRUE)
 #' newE <- combineTwoExpressionSet(eH2009,eSKOV3)
 #' }
-#' @seealso \code{\link[Biobase]{ExpressionSet}}
+#' @seealso \code{\linkS4class{ExpressionSet}}
 #' @author Eric Lecoutre
 #' @keywords data
 #' @importFrom Biobase AnnotatedDataFrame assayData `assayData<-` varMetadata `phenoData<-` `pData<-`

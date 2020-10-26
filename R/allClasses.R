@@ -17,10 +17,12 @@ setClass("limma",
 #' @section Objects from the Class:
 #' Objects can be created by calls of the form \code{new("ExpressionSetWithComputation", assayData, phenoData, featureData, experimentData, annotation, exprs, ...)}.
 #' @section Extends:
-#' Class \code{\link[Biobase]{ExpressionSet}}, directly.
-#' Class \code{\link[Biobase]{eSet}}, by class "ExpressionSet", distance 2.
-#' Class \code{\link[Biobase]{VersionedBiobase}}, by class "ExpressionSet", distance 3.
-#' Class \code{\link[Biobase]{Versioned}}, by class "ExpressionSet", distance 4.
+#' \itemize{
+#' \item{Class \code{\linkS4class{ExpressionSet}}, directly.}
+#' \item{Class \code{\linkS4class{eSet}}, by class "ExpressionSet", distance 2.}
+#' \item{Class \code{\linkS4class{VersionedBiobase}}, by class "ExpressionSet", distance 3.}
+#' \item{Class \code{\linkS4class{Versioned}}, by class "ExpressionSet", distance 4.}
+#' }
 #' @section Methods:
 #' No methods defined with class "ExpressionSetWithComputation" in the signature.
 #' @slot assayData Object of class \code{"AssayData"}
@@ -30,7 +32,7 @@ setClass("limma",
 #' @slot annotation Object of class \code{"character"}
 #' @slot .__classVersion__ Object of class \code{"Versions"}
 #' @author Tobias Verbeke
-#' @seealso \code{\link[Biobase]{ExpressionSet}}, \code{\link{computeLogRatio}}
+#' @seealso \code{\linkS4class{ExpressionSet}}, \code{\link{computeLogRatio}}
 #' @keywords classes
 #' @export
 setClass("ExpressionSetWithComputation",

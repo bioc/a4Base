@@ -31,10 +31,12 @@ Objects can be created by calls of the form \code{new("ExpressionSetWithComputat
 
 \section{Extends}{
 
-Class \code{\link[Biobase]{ExpressionSet}}, directly.
-Class \code{\link[Biobase]{eSet}}, by class "ExpressionSet", distance 2.
-Class \code{\link[Biobase]{VersionedBiobase}}, by class "ExpressionSet", distance 3.
-Class \code{\link[Biobase]{Versioned}}, by class "ExpressionSet", distance 4.
+\itemize{
+\item{Class \code{\linkS4class{ExpressionSet}}, directly.}
+\item{Class \code{\linkS4class{eSet}}, by class "ExpressionSet", distance 2.}
+\item{Class \code{\linkS4class{VersionedBiobase}}, by class "ExpressionSet", distance 3.}
+\item{Class \code{\linkS4class{Versioned}}, by class "ExpressionSet", distance 4.}
+}
 }
 
 \section{Methods}{
@@ -43,7 +45,7 @@ No methods defined with class "ExpressionSetWithComputation" in the signature.
 }
 
 \seealso{
-\code{\link[Biobase]{ExpressionSet}}, \code{\link{computeLogRatio}}
+\code{\linkS4class{ExpressionSet}}, \code{\link{computeLogRatio}}
 }
 \author{
 Tobias Verbeke
