@@ -1,3 +1,5 @@
+1.61.1
+    o replace limma topTableF by topTable
 1.37.3
     o fix specification of link for fct with different name help page
 1.37.2

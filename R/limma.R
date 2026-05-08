@@ -79,8 +79,8 @@ limmaReg <- function(object, covariable, probe2gene = TRUE){
 #' Empirical Bayesian estimates, so 
 #' columns: 't', 'p-value' and 'lods' by default.
 #' For expert use only.
-#' @inheritParams limma::topTableF
-#' @importFrom limma eBayes topTableF
+#' @inheritParams limma::topTable
+#' @importFrom limma eBayes topTable
 #' @rdname topTable-methods
 #' @export
 setMethod("topTable", "limma",
@@ -97,7 +97,7 @@ setMethod("topTable", "limma",
           fit <- eBayes(fit[, coef])
         if (sort.by == "B") 
           sort.by <- "F"
-        return(topTableF(fit, number = n, genelist = genelist, 
+        return(topTable(fit, number = n, genelist = genelist, 
                 adjust.method = adjust.method, sort.by = sort.by, 
                 p.value = p.value))
       }
@@ -112,7 +112,7 @@ setMethod("topTable", "limma",
 ### redefine as well for MArrayLM objects
 
 #' @export
-#' @importFrom limma eBayes topTableF
+#' @importFrom limma eBayes topTable
 #' @rdname topTable-methods
 setMethod("topTable", "MArrayLM",
     function(fit, n, coef = 2, genelist = fit$genes, 
@@ -130,7 +130,7 @@ setMethod("topTable", "MArrayLM",
           fit <- eBayes(fit[, coef])
         if (sort.by == "B") 
           sort.by <- "F"
-        return(topTableF(fit, number = n, genelist = genelist, 
+        return(topTable(fit, number = n, genelist = genelist, 
                 adjust.method = adjust.method, sort.by = sort.by, 
                 p.value = p.value))
       }

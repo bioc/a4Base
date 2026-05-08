@@ -34,12 +34,14 @@ heatmap.expressionSet(
   row.groups.hclust = FALSE,
   row.groups.hclust.n = 4,
   distfun = dist,
-  hclustfun = function(d) {     hclust(d, method = "ward") },
+  hclustfun = function(d) {
+     hclust(d, method = "ward")
+ },
   values.min = 0,
   values.max = 16,
   title.gpar = gpar(cex = 1.4),
- 
-    title.main = "This is the title  possibly being very long - it will be splited on several lines or even displayed with dots at the end -- see there (does it work? addendum)",
+  title.main =
+    "This is the title  possibly being very long - it will be splited on several lines or even displayed with dots at the end -- see there (does it work? addendum)",
   title.just = c("right", "top"),
   title.maxlines = 4,
   title.cutpoint = 40,

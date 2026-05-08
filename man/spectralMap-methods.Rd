@@ -13,8 +13,8 @@
   groups,
   makeLognormal = TRUE,
   mpm.args = list(row.weight = "mean", col.weight = "constant", logtrans = TRUE),
-  plot.mpm.args = list(zoom = c(1, 2), label.tol = 10, rot = c(-1, 1), sub = "",
-    lab.size = 0.85, col.group = pData(object)[, groups], colors = c("wheat", "darkgrey",
+  plot.mpm.args = list(zoom = c(1, 2), label.tol = 10, rot = c(-1, 1), sub = "", lab.size
+    = 0.85, col.group = pData(object)[, groups], colors = c("wheat", "darkgrey",
     a4palette(nlevels(pData(object)[, groups]))), col.size = 2, do.smoothScatter = TRUE),
   probe2gene = TRUE,
   addLegend = TRUE,
